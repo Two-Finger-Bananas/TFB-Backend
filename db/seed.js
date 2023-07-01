@@ -120,7 +120,7 @@ async function buildDatabase() {
     }
 }
 
-buildDatabase();
+//buildDatabase();
 
 module.exports = {
     fetchAllGames,

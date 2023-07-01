@@ -101,6 +101,16 @@ async function buildDatabase() {
             coverImg: "https://i.ibb.co/pvyGxcX/MV5-BNz-Ey-NGM5-Yjgt-Yj-Fk-MC00-MTE1-LTk1-Yjgt-Nj-Ay-Yj-A2-ODUz-Nz-Qw-Xk-Ey-Xk-Fqc-Gde-QXVy-Njk2-MTc.jpg"
         })
 
+        const fourthGame = await createNewGame({
+            title: "Diablo 2",
+            publishDate: "Jun 2000",
+            gameDeveloper: "Blizzard North",
+            genre: ["Action", "Adventire", "RPG"],
+            platforms: ["PC", "Apple Macintosh"],
+            players: ["Singleplayer", "Multiplayer"],
+            coverImg: "https://i.ibb.co/gwqcGZ6/Diablo-II-Coverart.png"
+        })
+
         const allGames = await fetchAllGames()
         const findSpecificGame = await fetchGameById()
         
@@ -110,7 +120,7 @@ async function buildDatabase() {
     }
 }
 
-// buildDatabase();
+buildDatabase();
 
 module.exports = {
     fetchAllGames,

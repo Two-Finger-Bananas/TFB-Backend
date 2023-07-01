@@ -50,7 +50,7 @@ async function postNewGame(req, res, next) {
 }
 
 app.post("/games", postNewGame)
-app.delete()
+app.delete("/games", deleteGame)
 
 const client = require("./db/index")
 client.connect()

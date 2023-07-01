@@ -60,7 +60,19 @@ async function deleteGame(req,res,next){
         console.log(error);
     }
 }
-app.delete("/games", deleteGame)
+app.delete("/games", deleteGame);
+
+async function updateGame(req,res,next){
+    try{
+        const gameId = req.params.id;
+        const updateGame = req.body;
+        await gameUpdate(gameId,gameUpdate);
+        res.send("game has been sucessfully updated")
+    } catch(error){
+        console.log(error);
+    }
+}
+ app.patch("/games/:id", updateGame);
 
 const client = require("./db/index")
 client.connect()

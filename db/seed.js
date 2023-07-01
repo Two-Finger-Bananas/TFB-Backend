@@ -82,6 +82,18 @@ async function fetchGameById(idValue) {
     }
 }
 
+async function deleteGameById(gameId) {
+    try{
+        const { rows } = await client.query(`
+            DELETE FROM games
+            WHERE "gameId" = $1
+            RETURNING *;
+        `, [gameId])
+    } catch(error){
+        console.log(error); 
+    }
+}
+
 async function buildDatabase() {
     try {
         client.connect();
@@ -138,12 +150,12 @@ async function buildDatabase() {
     }
 }
 
-//buildDatabase();
+// buildDatabase();
 
 module.exports = {
     fetchAllGames,
     fetchGameById,
     createNewGame,
-    updateGameById,
-    
+    deleteGameById,
+    updateGameById
 }

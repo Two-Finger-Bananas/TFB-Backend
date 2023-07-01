@@ -10,7 +10,7 @@ app.use(middlewareTest)
 
 app.use(express.json())
 
-const { fetchAllGames, fetchGameById, createNewGame } = require("./db/seed")
+const { fetchAllGames, fetchGameById, createNewGame, deleteGameById } = require("./db/seed")
 
 async function getAllGames(req, res, next) {
     try {
@@ -51,22 +51,21 @@ async function postNewGame(req, res, next) {
 
 app.post("/games", postNewGame)
 
-async function deleteGame(req,res,next){
-    try{
-        const gameId = req.params.id;
-        await fetchGameById(gameId);
-        res.send("game has been deleted")
-    } catch(error){
-        console.log(error);
+async function deleteGame(req, res) {
+    try {
+        const response = await deleteGameById(Number(req.params.id))
+        res.send(response)
+    } catch (error) {
+        console.log(error)
     }
 }
-app.delete("/games", deleteGame);
+app.delete("/games/:id", deleteGame);
 
 async function updateGame(req,res,next){
     try{
         const gameId = req.params.id;
         const updateGame = req.body;
-        await gameUpdate(gameId,gameUpdate);
+        await fetchGameById(gameId, gameUpdate);
         res.send("game has been sucessfully updated")
     } catch(error){
         console.log(error);

@@ -1,4 +1,7 @@
 const express = require("express")
+const path = require('path')
+require("dotenv").config()
+const jwt = require("jsonwebtoken")
 
 const app = express()
 
@@ -10,7 +13,11 @@ app.use(middlewareTest)
 
 app.use(express.json())
 
-const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById } = require("./db/seed")
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'))
+})
+
+const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername } = require("./db/seed")
 
 async function getAllGames(req, res, next) {
     try {
@@ -41,9 +48,19 @@ app.get("/games/:id", getGameById)
 
 async function postNewGame(req, res, next) {
     try {
-        const response = await createNewGame(req.body)
-        console.log(req.body)
-        res.send(response)
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                const response = await createNewGame(req.body)
+                res.send(response)
+            } else {
+                res.send({error: true, message: "User does not exist. Please register for a new account or try again."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
     } catch (error) {
         console.log(error)
     }
@@ -53,8 +70,19 @@ app.post("/games", postNewGame)
 
 async function deleteGame(req, res) {
     try {
-        const response = await deleteGameById(Number(req.params.id))
-        res.send(response)
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                const response = await deleteGameById(Number(req.params.id))
+                res.send(response)
+            } else {
+                res.send({error: true, message: "Failed to delete game."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
     } catch (error) {
         console.log(error)
     }
@@ -63,15 +91,49 @@ app.delete("/games/:id", deleteGame);
 
 async function updateAGame(req,res){
     try{
-        let theGameId = Number(req.params.id);
-        let actualupdateGame = req.body;
-       const newUpdatedGame= await updateGameById(theGameId,actualupdateGame);
-        res.send(newUpdatedGame)
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                let theGameId = Number(req.params.id);
+                let actualupdateGame = req.body;
+                const newUpdatedGame= await updateGameById(theGameId,actualupdateGame);
+                res.send(newUpdatedGame)
+            } else {
+                res.send({error: true, message: "Failed to update game."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
     } catch(error){
         console.log(error);
     }
 }
  app.patch("/games/:id", updateAGame);
+
+ async function registerNewUser(req, res) {
+    try {
+        const response = req.body
+        const newJWTToken = await jwt.sign(req.body, process.env.JWT_SECRET, {
+            expiresIn: "1w"
+        })
+        if(newJWTToken) {
+            const newUserForDb = await createNewUser(req.body)
+            if(newUserForDb) {
+                res.send({userData: newUserForDb, token: newJWTToken}).staus(200)
+            } else {
+                res.send({error: true, message: "Failed to create user"}).status(403)
+            }
+        } else {
+            res.send({error: true, message: "Failed to create valid auth token"})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+ }
+
+ app.post("/users/register", registerNewUser)
 
 const client = require("./db/index")
 client.connect()

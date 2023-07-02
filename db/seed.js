@@ -13,6 +13,12 @@ async function createTables() {
                 players TEXT,
                 "coverImg" TEXT
             );
+
+            CREATE TABLE users(
+                "userId" SERIAL PRIMARY KEY,
+                username VARCHAR(255) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL
+            )
         `)
     } catch (error) {
         console.log(error);
@@ -39,9 +45,45 @@ async function destroyTables() {
     try {
         await client.query(`
             DROP TABLE IF EXISTS games;
+            DROP TABLE IF EXISTS users;
         `)
     } catch (error) {
         console.log(error);
+    }
+}
+
+async function createNewUser(userOb) {
+    try {
+        const { rows } = await client.query(`
+            INSERT INTO users(username, password)
+            VALUES($1, $2)
+            RETURNING username;
+        `, [userOb.username, userOb.password])
+
+        if(rows.length) {
+            return rows[0]
+        } else {
+            return "Failed to create user"
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function fetchUserByUsername(username) {
+    try {
+        const { rows } = await client.query(`
+                SELECT * FROM users
+                WHERE username = $1;
+        `, [username])
+        
+        if(rows.length) {
+            return rows[0]
+        } else {
+            return "Failed to fetch users "
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -103,7 +145,7 @@ async function buildDatabase() {
 
         const firstGame = await createNewGame({
             title: "Grand Theft Auto V",
-            publishDate: "Sep 2023",
+            publishDate: "Sep 2013",
             gameDeveloper: "Rockstar Games",
             genre: ["Action", "Adventure"],
             platforms: ["Playstation", "Xbox", "PC"],
@@ -157,5 +199,7 @@ module.exports = {
     fetchGameById,
     createNewGame,
     deleteGameById,
-    updateGameById
+    updateGameById,
+    createNewUser,
+    fetchUserByUsername
 }

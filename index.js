@@ -2,12 +2,19 @@ const express = require("express")
 
 const app = express()
 
+function corsBypass(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5174');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+}
+
 function middlewareTest(req, res, next) {
     console.log("the test worked")
     next()
 }
 app.use(middlewareTest)
-
+app.use(corsBypass);
 app.use(express.json())
 
 const { fetchAllGames, fetchGameById, createNewGame, updateGameById } = require("./db/seed")

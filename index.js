@@ -122,13 +122,13 @@ async function updateAGame(req,res){
  async function registerNewUser(req, res) {
     try {
         const response = req.body
-        const newJWTToken = await jwt.sign(req.body, process.env.JWT_SECRET, {
+        const newJWTToken = await jwt.sign(response, process.env.JWT_SECRET, {
             expiresIn: "1w"
         })
         if(newJWTToken) {
             const newUserForDb = await createNewUser(req.body)
             if(newUserForDb) {
-                res.send({userData: newUserForDb, token: newJWTToken}).staus(200)
+                res.send({userData: newUserForDb, token: newJWTToken}).status(200)
             } else {
                 res.send({error: true, message: "Failed to create user"}).status(403)
             }
@@ -140,7 +140,30 @@ async function updateAGame(req,res){
     }
  }
 
- app.post("/users/register", registerNewUser)
+ app.post("/user/register", registerNewUser)
+
+ async function loginUser(req, res) {
+    try {
+        const response = req.body
+        const JWTToken = await jwt.sign(response, process.env.JWT_SECRET, {
+            expiresIn: "1w"
+        })
+        if(JWTToken) {
+            const user = await fetchUserByUsername(req.body.username)
+            if(user) {
+                res.send({userData: user.username, token: JWTToken}).status(200)
+            } else {
+                res.send({error: true, message: "Failed to login. Please try again"}).status(403)
+            }
+        } else {
+            res.send({error: true, message: "Failed to fetch valid auth token"})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+ }
+
+ app.post("/user/login", loginUser)
 
 const client = require("./db/index")
 client.connect()

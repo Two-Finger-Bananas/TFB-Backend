@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 const app = express()
 
 function corsBypass(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5174');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
@@ -127,10 +127,11 @@ async function updateAGame(req,res){
         })
         if(newJWTToken) {
             const newUserForDb = await createNewUser(req.body)
+            console.log(newUserForDb)
             if(newUserForDb) {
                 res.send({userData: newUserForDb, token: newJWTToken}).status(200)
             } else {
-                res.send({error: true, message: "Failed to create user"}).status(403)
+                res.send({error: true, message: "Failed to create user (index)"}).status(403)
             }
         } else {
             res.send({error: true, message: "Failed to create valid auth token"})

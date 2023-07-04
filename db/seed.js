@@ -63,7 +63,7 @@ async function createNewUser(userOb) {
         if(rows.length) {
             return rows[0]
         } else {
-            return "Failed to create user"
+            return "Failed to create user (seed)"
         }
     } catch (error) {
         console.log(error)

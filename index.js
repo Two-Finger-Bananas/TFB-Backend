@@ -83,7 +83,7 @@ async function deleteGame(req, res) {
             const userFromDb = await fetchUserByUsername(auth.username)
             if ( userFromDb) {
                 const response = await deleteGameById(Number(req.params.id))
-                res.send(response)
+                res.send({response, message: "Game deleted"})
             } else {
                 res.send({error: true, message: "Failed to delete game."})
             }
@@ -127,7 +127,6 @@ async function updateAGame(req,res){
         })
         if(newJWTToken) {
             const newUserForDb = await createNewUser(req.body)
-            console.log(newUserForDb)
             if(newUserForDb) {
                 res.send({userData: newUserForDb, token: newJWTToken}).status(200)
             } else {

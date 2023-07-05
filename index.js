@@ -5,26 +5,29 @@ const jwt = require("jsonwebtoken")
 
 const app = express()
 
-function corsBypass(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-}
+const cors = require("cors");
+app.use(cors());
+
+// function corsBypass(req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+// }
 
 function middlewareTest(req, res, next) {
     console.log("the test worked")
     next()
 }
 app.use(middlewareTest)
-app.use(corsBypass);
+// app.use(corsBypass);
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
-const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername } = require("./db/seed")
+const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -144,19 +147,31 @@ async function updateAGame(req,res){
 
  async function loginUser(req, res) {
     try {
-        const response = req.body
-        const JWTToken = await jwt.sign(response, process.env.JWT_SECRET, {
-            expiresIn: "1w"
-        })
-        if(JWTToken) {
+
+        if (!req.body.username || !req.body.password){
+            res.send({error: true, message: "Youe username or password is incorrect"})
+        } else{
             const user = await fetchUserByUsername(req.body.username)
-            if(user) {
-                res.send({userData: user.username, token: JWTToken}).status(200)
-            } else {
-                res.send({error: true, message: "Failed to login. Please try again"}).status(403)
-            }
+        console.log(user, 'user')
+        if (user && user.username){
+            const response = req.body
+                    const JWTToken = await jwt.sign(response, process.env.JWT_SECRET, {
+                        expiresIn: "1w"
+                    })
+                    console.log(JWTToken, '!!!!')
+                    if(JWTToken) {
+                        
+                        if(user) {
+                            res.send({userData: user.username, token: JWTToken}).status(200)
+                        } else {
+                            res.send({error: true, message: "Failed to login. Please try again"}).status(403)
+                        }
+                    } else {
+                        res.send({error: true, message: "Failed to fetch valid auth token"})
+                    }
         } else {
-            res.send({error: true, message: "Failed to fetch valid auth token"})
+            res.send({error: true, message: "User does not exist"})
+        }
         }
     } catch (error) {
         console.log(error)

@@ -24,7 +24,7 @@ async function createTables() {
         console.log(error);
     }
 }
-async function updateGameById(gameId, updateGameObjData){
+/*async function updateGameById(gameId, updateGameObjData){
     try {
         const { rows } = await client.query(`
             UPDATE games
@@ -50,7 +50,30 @@ async function destroyTables() {
     } catch (error) {
         console.log(error);
     }
-}
+}*/
+//test code
+async function updateGameById(gameId, fields = {}) {
+    const setString = Object.keys(fields).map(
+      (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ');
+    if (setString.length === 0) {
+      return;
+    }
+  
+    try {
+      const { rows: [games] } = await client.query(`
+        UPDATE games
+        SET ${setString}
+        WHERE "gameId" = ${gameId}
+        RETURNING *;
+      `,Object.values(fields));
+  
+      return games;
+    } catch (error) {
+      throw error;
+    }
+  }
+  //test code end
 
 async function createNewUser(userOb) {
     try {

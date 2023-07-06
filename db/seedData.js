@@ -39,7 +39,7 @@ async function createTables() {
 } catch (error) {
     console.log(error);
 }
-}
+}*/
 
 async function destroyTables() {
     try {
@@ -50,7 +50,7 @@ async function destroyTables() {
     } catch (error) {
         console.log(error);
     }
-}*/
+}
 //test code
 async function updateGameById(gameId, fields = {}) {
     const setString = Object.keys(fields).map(
@@ -211,6 +211,20 @@ async function buildDatabase() {
         
         client.end()
     } catch (error) {
+        console.log(error);
+    }
+}
+//Code for Reviews:
+
+async function createReviews(){
+    try{
+        const { rows } = await client.query(
+            `INSERT INTO reviews (text, rating, userId, gameId)
+       VALUES ($1, $2, $3, $4)
+       RETURNING *`,
+       [review.text, review.rating, review.userId, review.gameId]
+        );
+    } catch(error){
         console.log(error);
     }
 }

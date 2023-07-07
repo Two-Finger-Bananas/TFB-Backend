@@ -18,7 +18,7 @@ async function createTables() {
                 "userId" SERIAL PRIMARY KEY,
                 username VARCHAR(255) UNIQUE NOT NULL,
                 password VARCHAR(255) NOT NULL
-            );
+            )
 
             CREATE TABLE reviews(
                 "reviewId" SERIAL PRIMARY KEY,
@@ -34,10 +34,49 @@ async function createTables() {
                 "userId" INTEGER REFERENCES users("userId"),
                 "reviewId" INTEGER REFERENCES reviews("reviewId")
             );  
-            
-        `);
+        `)
     } catch (error) {
         console.log(error);
+    }
+}
+
+// async function updateGameById(gameId, updateGameObjData){
+//     try {
+//         const { rows } = await client.query(`
+//             UPDATE games
+//             SET title = $1, "publishDate" = $2, "gameDeveloper" = $3, genre = $4, platforms = $5, players = $6, "coverImg" = $7
+//             WHERE "gameId" = $8
+//             RETURNING *;
+//           `, [ updateGameObjData.title, updateGameObjData.publishDate,updateGameObjData.gameDeveloper,updateGameObjData.genre, updateGameObjData.platforms, updateGameObjData.players,updateGameObjData.coverImg, gameId]);
+
+//   if (rows.length){
+//     return rows[0];
+//   }
+// } catch (error) {
+//     console.log(error);
+// }
+// }
+
+async function updateGameById(gameId, fields = {}) {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${ key }" = $${ index + 1}`
+    ).join(', ')
+
+    if (setString.length === 0) {
+        return;
+    }
+
+    try {
+        const { rows: [ games ] } = await client.query(`
+        UPDATE games
+        SET ${ setString }
+        WHERE "gameId" = ${gameId}
+        RETURNING *;
+        `, Object.values(fields))
+
+        return games
+    } catch (error) {
+        console.log(error)
     }
 }
 
@@ -47,7 +86,7 @@ async function destroyTables() {
         DROP TABLE IF EXISTS comments;
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS games;
-        DROP TABLE IF EXISTS users;
+         DROP TABLE IF EXISTS users;
         `)
     } catch (error) {
         console.log(error);
@@ -63,18 +102,18 @@ async function updateGameById(gameId, fields = {}) {
     }
   
     try {
-        const { rows: [games] } = await client.query(`
-          UPDATE games
-          SET ${setString}
-          WHERE "gameId" = ${gameId}
-          RETURNING *;
-        `,Object.values(fields));
-    
-        return games;
-      } catch (error) {
-        throw error;
-      }
+      const { rows: [games] } = await client.query(`
+        UPDATE games
+        SET ${setString}
+        WHERE "gameId" = ${gameId}
+        RETURNING *;
+      `,Object.values(fields));
+  
+      return games;
+    } catch (error) {
+      throw error;
     }
+  }
   //test code end
 
 async function createNewUser(userOb) {
@@ -118,13 +157,7 @@ async function createNewGame(newGameObj) {
             INSERT INTO games(title, "publishDate", "gameDeveloper", genre, platforms, players, "coverImg")
             VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
-        `, [newGameObj.title, newGameObj.publishDate, newGameObj.gameDeveloper, newGameObj.genre, newGameObj.platforms, newGameObj.players, newGameObj. coverImg]);
-
-        if(rows.length){
-            return rows[0];
-        }else{
-            return "Failed to create game seed"
-        }
+        `, [newGameObj.title, newGameObj.publishDate, newGameObj.gameDeveloper, newGameObj.genre, newGameObj.platforms, newGameObj.players, newGameObj. coverImg])
     } catch (error) {
         console.log(error)
     }
@@ -166,7 +199,6 @@ async function deleteGameById(gameId) {
         console.log(error); 
     }
 }
-
 
 async function buildDatabase() {
     try {
@@ -223,22 +255,20 @@ async function buildDatabase() {
         console.log(error);
     }
 }
-
 //Code for Reviews:
 
-async function createReviews(reviews){
+async function createReviews(){
     try{
         const { rows } = await client.query(
             `INSERT INTO reviews (text, rating, userId, gameId)
        VALUES ($1, $2, $3, $4)
        RETURNING *`,
-       [reviews.text, reviews.rating, reviews.userId, reviews.gameId]
+       [review.text, review.rating, review.userId, review.gameId]
         );
     } catch(error){
         console.log(error);
     }
 }
-
 async function fetchReviews(){
     try{
         const { rows } = await client.query(` SELECT * FROM reviews`)
@@ -363,8 +393,7 @@ async function updateCommentById(commentId, fields = {}) {
       throw error;
     }
   }
-//end of comments and reviews
-
+//end of comments and revie
 module.exports = {
     fetchAllGames,
     fetchGameById,

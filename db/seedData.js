@@ -275,7 +275,7 @@ async function buildDatabase() {
             "password": "alvarez"
           })
 
-        const testCommentOne = await createComments()
+        // const testCommentOne = await createComments()
 
         const allGames = await fetchAllGames()
         const findSpecificGame = await fetchGameById()

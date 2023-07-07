@@ -19,6 +19,23 @@ async function createTables() {
                 username VARCHAR(255) UNIQUE NOT NULL,
                 password VARCHAR(255) NOT NULL
             );
+
+            CREATE TABLE reviews(
+                "reviewId" SERIAL PRIMARY KEY,
+                text VARCHAR(255) NOT NULL,
+                rating INTEGER NOT NULL,
+                username VARCHAR(255) NOT NULL
+                "userId" INTEGER REFERENCES users("userId"),
+                "gameId" INTEGER REFERENCES games("gameId")
+            );
+
+            CREATE TABLE comments(
+                "commentId" SERIAL PRIMARY KEY,
+                text VARCHAR(255) NOT NULL,
+                username VARCHAR(255) NOT NULL,
+                "userId" INTEGER REFERENCES users("userId"),
+                "reviewId" INTEGER REFERENCES reviews("reviewId")
+            );  
         `)
     } catch (error) {
         console.log(error);
@@ -68,8 +85,10 @@ async function updateGameById(gameId, fields = {}) {
 async function destroyTables() {
     try {
         await client.query(`
-            DROP TABLE IF EXISTS games;
-            DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS comments;
+        DROP TABLE IF EXISTS reviews;
+        DROP TABLE IF EXISTS games;
+        DROP TABLE IF EXISTS users;
         `)
     } catch (error) {
         console.log(error);
@@ -230,6 +249,34 @@ async function buildDatabase() {
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png"
         })
 
+        const testReviewOne = await createReviews({
+            "text": "It's ok.",
+            "rating": 3,
+            "username": "mason",
+            "userId": 1,
+            "gameId": 1
+        })
+
+        const testReviewTwo = await createReviews({
+                "text": "This sucks!",
+                "rating": 1,
+                "username": "george",
+                "userId": 2,
+                "gameId": 1    
+        })
+
+        const testUserOne = await createNewUser({
+            "username": "mason",
+            "password": "walker"
+          })
+
+        const testUserTwo = await createNewUser({
+            "username": "george",
+            "password": "alvarez"
+          })
+
+        const testCommentOne = await createComments()
+
         const allGames = await fetchAllGames()
         const findSpecificGame = await fetchGameById()
         
@@ -240,19 +287,145 @@ async function buildDatabase() {
 }
 //Code for Reviews:
 
-async function createReviews(){
+async function createReviews(reviews){
+    // console.log(reviews)
     try{
         const { rows } = await client.query(
-            `INSERT INTO reviews (text, rating, userId, gameId)
-       VALUES ($1, $2, $3, $4)
+        `INSERT INTO reviews(text, rating, username, "userId", "gameId")
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *; `,
+        [reviews.text, reviews.rating, reviews.username, reviews.userId, reviews.gameId]
+        );
+        return rows[0]
+    } catch(error){
+        console.log(error);
+    }
+}
+async function fetchReviews(){
+    try{
+        const { rows } = await client.query(` SELECT * FROM reviews`)
+        return rows;
+    } catch (error){
+        console.log(error);
+    }
+}
+
+async function fetchReviewById(reviewId){
+try {
+    const { rows } = await client.query(`
+        SELECT * FROM reviews
+        WHERE "reviewId" = $1
+    `, [reviewId])
+    return rows[0]
+} catch (error) {
+    console.log(error)
+}
+}
+
+async function deleteReviewById(reviewId) {
+    try{
+        const { rows } = await client.query(`
+            DELETE FROM reviews
+            WHERE "reviewId" = $1
+            RETURNING *;
+        `, [reviewId])
+    } catch(error){
+        console.log(error); 
+    }
+}
+
+
+
+async function updateReviewById(reviewId, fields = {}) {
+    const setString = Object.keys(fields).map(
+      (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ');
+    if (setString.length === 0) {
+      return;
+    }
+    try {
+      const { rows: [reviews] } = await client.query(`
+        UPDATE reviews
+        SET ${setString}
+        WHERE "reviewId" = ${reviewId}
+        RETURNING *;
+      `,Object.values(fields));
+  
+      return reviews;
+    } catch (error) {
+      throw error;
+    }
+  }
+//code for comments:
+
+async function createComments(comments){
+    try{
+        const { rows } = await client.query(
+            `INSERT INTO comments ( text, userId, gameId)
+       VALUES ($1, $2, $3)
        RETURNING *`,
-       [review.text, review.rating, review.userId, review.gameId]
+       [comments.text, comments.userId, comments.gameId]
         );
     } catch(error){
         console.log(error);
     }
 }
 
+
+async function fetchComments(){
+    try{
+        const { rows } = await client.query(` SELECT * FROM comments`)
+        return rows;
+    } catch (error){
+        console.log(error);
+    }
+}
+
+async function fetchCommentsById(commentId){
+try {
+    const { rows } = await client.query(`
+        SELECT * FROM comments
+        WHERE "commentId" = $1
+    `, [commentId])
+    return rows[0]
+} catch (error) {
+    console.log(error)
+}
+}
+
+async function deleteComment(commentId) {
+    try{
+        const { rows } = await client.query(`
+            DELETE FROM comments
+            WHERE "commentId" = $1
+            RETURNING *;
+        `, [commentId])
+    } catch(error){
+        console.log(error); 
+    }
+}
+
+async function updateCommentById(commentId, fields = {}) {
+    const setString = Object.keys(fields).map(
+      (key, index) => `"${key}"=$${index + 1}`
+    ).join(', ');
+    if (setString.length === 0) {
+      return;
+    }
+    try {
+      const { rows: [comments] } = await client.query(`
+        UPDATE comments
+        SET ${setString}
+        WHERE "commentId" = ${commentId}
+        RETURNING *;
+      `,Object.values(fields));
+  
+      return comments;
+    } catch (error) {
+      throw error;
+    }
+  }
+//end of comments and revie
 module.exports = {
     fetchAllGames,
     fetchGameById,
@@ -261,5 +434,16 @@ module.exports = {
     updateGameById,
     createNewUser,
     fetchUserByUsername,
+    //new exports:
+    fetchReviews,
+    fetchReviewById,
+    createReviews,
+    deleteReviewById,
+    updateReviewById,
+    createComments,
+    fetchComments,
+    fetchCommentsById,
+    deleteComment,
+    updateCommentById,
     buildDatabase
 }

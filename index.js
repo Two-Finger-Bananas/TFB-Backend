@@ -27,7 +27,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
-const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername } = require("./db/seedData")
+const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername,fetchReviews,
+    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, deleteComment,updateCommentById } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -179,6 +180,105 @@ async function updateAGame(req,res){
  }
 
  app.post("/user/login", loginUser)
+
+ //code for reviews:
+
+ async function getAllReviews(req, res, next) {
+    try {
+        const response = await fetchReviews()
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No reviews available")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/reviews", getAllReviews)
+
+async function getReviewById(req, res, next) {
+    try {
+        const response = await fetchReviewById(Number(req.params.id))
+
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/reviews/:id", getReviewById)
+
+async function postNewReview(req, res, next) {
+    try {
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                const response = await createReviews(req.body)
+                console.log(response)
+                res.send(response)
+            } else {
+                res.send({error: true, message: "You need to have an account before being able to post a review."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to create review, try again."})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.post("/reviews", postNewReview)
+
+async function deleteReview(req, res) {
+    try {
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                const response = await deleteReviewById(Number(req.params.id))
+                res.send({response, message: "Game deleted"})
+            } else {
+                res.send({error: true, message: "Failed to delete review."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+app.delete("/reviews/:id", deleteReview);
+
+async function updateAReview(req,res){
+    try{
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                let theGameId = Number(req.params.id);
+                let actualupdateGame = req.body;
+                const newUpdatedGame= await updateReviewById(theGameId,actualupdateGame);
+                res.send(newUpdatedGame)
+            } else {
+                res.send({error: true, message: "Failed to update review."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
+    } catch(error){
+        console.log(error);
+    }
+}
+ app.patch("/reviews/:id", updateAReview);
+
+ 
+ 
 
 const client = require("./db/index")
 client.connect()

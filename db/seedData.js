@@ -24,7 +24,7 @@ async function createTables() {
                 "reviewId" SERIAL PRIMARY KEY,
                 text VARCHAR(255) NOT NULL,
                 rating INTEGER NOT NULL,
-                username VARCHAR(255) NOT NULL
+                username VARCHAR(255) NOT NULL,
                 "userId" INTEGER REFERENCES users("userId"),
                 "gameId" INTEGER REFERENCES games("gameId")
             );
@@ -248,7 +248,17 @@ async function buildDatabase() {
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png"
         })
+        
+        
+        const testUserOne = await createNewUser({
+            "username": "mason",
+            "password": "walker"
+        })
 
+        const testUserTwo = await createNewUser({
+            "username": "george",
+            "password": "alvarez"
+        })
         const testReviewOne = await createReviews({
             "text": "It's ok.",
             "rating": 3,
@@ -264,16 +274,6 @@ async function buildDatabase() {
                 "userId": 2,
                 "gameId": 1    
         })
-
-        const testUserOne = await createNewUser({
-            "username": "mason",
-            "password": "walker"
-          })
-
-        const testUserTwo = await createNewUser({
-            "username": "george",
-            "password": "alvarez"
-          })
 
         // const testCommentOne = await createComments()
 

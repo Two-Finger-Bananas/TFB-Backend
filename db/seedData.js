@@ -18,19 +18,21 @@ async function createTables() {
                 "userId" SERIAL PRIMARY KEY,
                 username VARCHAR(255) UNIQUE NOT NULL,
                 password VARCHAR(255) NOT NULL
-            )
+            );
 
             CREATE TABLE reviews(
                 "reviewId" SERIAL PRIMARY KEY,
                 text VARCHAR(255) NOT NULL,
                 rating INTEGER NOT NULL,
+                username VARCHAR(255) NOT NULL,
                 "userId" INTEGER REFERENCES users("userId"),
                 "gameId" INTEGER REFERENCES games("gameId")
             );
 
-            CREATE TABLE comments (
+            CREATE TABLE comments(
                 "commentId" SERIAL PRIMARY KEY,
                 text VARCHAR(255) NOT NULL,
+                username VARCHAR(255) NOT NULL,
                 "userId" INTEGER REFERENCES users("userId"),
                 "reviewId" INTEGER REFERENCES reviews("reviewId")
             );  
@@ -86,7 +88,7 @@ async function destroyTables() {
         DROP TABLE IF EXISTS comments;
         DROP TABLE IF EXISTS reviews;
         DROP TABLE IF EXISTS games;
-         DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS users;
         `)
     } catch (error) {
         console.log(error);
@@ -246,6 +248,34 @@ async function buildDatabase() {
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png"
         })
+        
+        
+        const testUserOne = await createNewUser({
+            "username": "mason",
+            "password": "walker"
+        })
+
+        const testUserTwo = await createNewUser({
+            "username": "george",
+            "password": "alvarez"
+        })
+        const testReviewOne = await createReviews({
+            "text": "It's ok.",
+            "rating": 3,
+            "username": "mason",
+            "userId": 1,
+            "gameId": 1
+        })
+
+        const testReviewTwo = await createReviews({
+                "text": "This sucks!",
+                "rating": 1,
+                "username": "george",
+                "userId": 2,
+                "gameId": 1    
+        })
+
+        // const testCommentOne = await createComments()
 
         const allGames = await fetchAllGames()
         const findSpecificGame = await fetchGameById()
@@ -257,14 +287,16 @@ async function buildDatabase() {
 }
 //Code for Reviews:
 
-async function createReviews(){
+async function createReviews(reviews){
+    // console.log(reviews)
     try{
         const { rows } = await client.query(
-            `INSERT INTO reviews (text, rating, userId, gameId)
-       VALUES ($1, $2, $3, $4)
-       RETURNING *`,
-       [review.text, review.rating, review.userId, review.gameId]
+        `INSERT INTO reviews(text, rating, username, "userId", "gameId")
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *; `,
+        [reviews.text, reviews.rating, reviews.username, reviews.userId, reviews.gameId]
         );
+        return rows[0]
     } catch(error){
         console.log(error);
     }

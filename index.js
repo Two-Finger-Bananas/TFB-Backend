@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 })
 
 const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername,fetchReviews,
-    fetchReviewById,createReviews, deleteReviewById, updateReviewById,createComments, fetchComments, fetchCommentsById, deleteComment,updateCommentById } = require("./db/seedData")
+    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, deleteComment,updateCommentById } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -189,7 +189,7 @@ async function updateAGame(req,res){
         if (response.length) {
             res.send(response)
         } else {
-            res.send("Np reviews available")
+            res.send("No reviews available")
         }
     } catch (error) {
         console.log(error)
@@ -218,12 +218,13 @@ async function postNewReview(req, res, next) {
             const userFromDb = await fetchUserByUsername(auth.username)
             if ( userFromDb) {
                 const response = await createReviews(req.body)
+                console.log(response)
                 res.send(response)
             } else {
-                res.send({error: true, message: "User does not exist. Please register for a new account or try again."})
+                res.send({error: true, message: "You need to have an account before being able to post a review."})
             }
         } else {
-            res.send({error: true, message: "Failed to decrypt token."})
+            res.send({error: true, message: "Failed to create review, try again."})
         }
     } catch (error) {
         console.log(error)

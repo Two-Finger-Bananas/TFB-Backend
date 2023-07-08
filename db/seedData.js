@@ -17,7 +17,9 @@ async function createTables() {
             CREATE TABLE users(
                 "userId" SERIAL PRIMARY KEY,
                 username VARCHAR(255) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL
+                password VARCHAR(255) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                is_admin BOOLEAN DEFAULT false
             );
 
             CREATE TABLE reviews(
@@ -252,12 +254,14 @@ async function buildDatabase() {
         
         const testUserOne = await createNewUser({
             "username": "mason",
-            "password": "walker"
+            "password": "walker",
+            "email": "mason.walker@gmail.com"
         })
 
         const testUserTwo = await createNewUser({
             "username": "george",
-            "password": "alvarez"
+            "password": "alvarez",
+            "email": "george.alvarez@gmail.com"
         })
         const testReviewOne = await createReviews({
             "text": "It's ok.",
@@ -275,7 +279,19 @@ async function buildDatabase() {
                 "gameId": 1    
         })
 
-        // const testCommentOne = await createComments()
+        const testCommentOne = await createComments({
+            "text": "It's not ok",
+            "username": "george",
+            "userId": 2,
+            "gameId": 1
+          })
+
+          const testCommentTwo = await createComments({
+            "text": "This is great!",
+            "username": "mason",
+            "userId": 1,
+            "gameId": 1
+          })
 
         const allGames = await fetchAllGames()
         const findSpecificGame = await fetchGameById()

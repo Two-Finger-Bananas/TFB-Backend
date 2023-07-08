@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 })
 
 const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername,fetchReviews,
-    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, deleteComment,updateCommentById, deleteCommentById } = require("./db/seedData")
+    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, updateCommentById, deleteCommentById } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -328,7 +328,7 @@ async function postNewComment(req, res, next) {
     }
 }
 
-app.post("/comment", postNewComment)
+app.post("/comments", postNewComment)
 
 async function deleteComment(req, res) {
     try {
@@ -372,7 +372,7 @@ async function updateAComment(req,res){
         console.log(error);
     }
 }
- app.patch("/comment/:id", updateAComment);
+ app.patch("/comments/:id", updateAComment);
 
  
 const client = require("./db/index")

@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 })
 
 const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername,fetchReviews,
-    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, deleteComment,updateCommentById } = require("./db/seedData")
+    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, deleteComment,updateCommentById, deleteCommentById } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -246,7 +246,7 @@ async function deleteReview(req, res) {
                 res.send({error: true, message: "Failed to delete review."})
             }
         } else {
-            res.send({error: true, message: "Failed to decrypt token."})
+            res.send({error: true, message: "Failed to create review, try again."})
         }
     } catch (error) {
         console.log(error)
@@ -261,10 +261,10 @@ async function updateAReview(req,res){
         if (auth) {
             const userFromDb = await fetchUserByUsername(auth.username)
             if ( userFromDb) {
-                let theGameId = Number(req.params.id);
-                let actualupdateGame = req.body;
-                const newUpdatedGame= await updateReviewById(theGameId,actualupdateGame);
-                res.send(newUpdatedGame)
+                let theReviewId = Number(req.params.id);
+                let actualUpdatedReview = req.body;
+                const newUpdatedReview= await updateReviewById(theReviewId,actualUpdatedReview);
+                res.send(newUpdatedReview)
             } else {
                 res.send({error: true, message: "Failed to update review."})
             }
@@ -278,8 +278,103 @@ async function updateAReview(req,res){
  app.patch("/reviews/:id", updateAReview);
 
  
- 
+ // code for comments:
 
+ async function getAllComments(req, res, next) {
+    try {
+        const response = await fetchComments()
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No comments available")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/comments", getAllComments)
+
+async function getCommentById(req, res, next) {
+    try {
+        const response = await fetchCommentsById(Number(req.params.id))
+
+        res.send(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/comments/:id", getCommentById)
+
+async function postNewComment(req, res, next) {
+    try {
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                const response = await createComments(req.body)
+                console.log(response)
+                res.send(response)
+            } else {
+                res.send({error: true, message: "You need to have an account before being able to post a comment."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to create comment, try again."})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.post("/comment", postNewComment)
+
+async function deleteComment(req, res) {
+    try {
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                const response = await deleteCommentById(Number(req.params.id))
+                res.send({response, message: "Comment deleted"})
+            } else {
+                res.send({error: true, message: "Failed to delete comment."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+app.delete("/comments/:id", deleteComment);
+
+async function updateAComment(req,res){
+    try{
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb) {
+                let theCommentId = Number(req.params.id);
+                let actualUpdatedComment = req.body;
+                const newUpdatedComment= await updateCommentById(theCommentId,actualUpdatedComment);
+                res.send(newUpdatedComment)
+            } else {
+                res.send({error: true, message: "Failed to update comment."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
+    } catch(error){
+        console.log(error);
+    }
+}
+ app.patch("/comment/:id", updateAComment);
+
+ 
 const client = require("./db/index")
 client.connect()
 

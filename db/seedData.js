@@ -393,7 +393,7 @@ try {
 }
 }
 
-async function deleteComment(commentId) {
+async function deleteCommentById(commentId) {
     try{
         const { rows } = await client.query(`
             DELETE FROM comments
@@ -443,7 +443,7 @@ module.exports = {
     createComments,
     fetchComments,
     fetchCommentsById,
-    deleteComment,
+    deleteCommentById,
     updateCommentById,
     buildDatabase
 }

@@ -17,7 +17,9 @@ async function createTables() {
             CREATE TABLE users(
                 "userId" SERIAL PRIMARY KEY,
                 username VARCHAR(255) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL
+                password VARCHAR(255) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                is_admin BOOLEAN DEFAULT false
             );
 
             CREATE TABLE reviews(
@@ -94,8 +96,8 @@ async function destroyTables() {
         console.log(error);
     }
 }
-//test code
-async function updateGameById(gameId, fields = {}) {
+
+/*async function updateGameById(gameId, fields = {}) {
     const setString = Object.keys(fields).map(
       (key, index) => `"${key}"=$${index + 1}`
     ).join(', ');
@@ -115,16 +117,16 @@ async function updateGameById(gameId, fields = {}) {
     } catch (error) {
       throw error;
     }
-  }
-  //test code end
+  }*/
+  
 
 async function createNewUser(userOb) {
     try {
         const { rows } = await client.query(`
-            INSERT INTO users(username, password)
-            VALUES($1, $2)
+            INSERT INTO users(username, password, email, is_admin)
+            VALUES($1, $2, $3, $4)
             RETURNING username;
-        `, [userOb.username, userOb.password])
+        `, [userOb.username, userOb.password, userOb.email, userOb.is_admin])
 
         if(rows.length) {
             return rows[0]
@@ -249,16 +251,20 @@ async function buildDatabase() {
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png"
         })
         
-        
         const testUserOne = await createNewUser({
             "username": "mason",
-            "password": "walker"
+            "password": "walker",
+            "email": "mason.walker@gmail.com",
+            "is_admin": true
         })
 
         const testUserTwo = await createNewUser({
             "username": "george",
-            "password": "alvarez"
+            "password": "alvarez",
+            "email": "george.alvarez@gmail.com",
+            "is_admin": true
         })
+        
         const testReviewOne = await createReviews({
             "text": "It's ok.",
             "rating": 3,
@@ -275,7 +281,19 @@ async function buildDatabase() {
                 "gameId": 1    
         })
 
-        // const testCommentOne = await createComments()
+        const testCommentOne = await createComments({
+            "text": "It's not ok",
+            "username": "george",
+            "userId": 2,
+            "reviewId": 1
+          })
+
+          const testCommentTwo = await createComments({
+            "text": "This is great!",
+            "username": "mason",
+            "userId": 1,
+            "reviewId": 1
+          })
 
         const allGames = await fetchAllGames()
         const findSpecificGame = await fetchGameById()
@@ -361,11 +379,12 @@ async function updateReviewById(reviewId, fields = {}) {
 async function createComments(comments){
     try{
         const { rows } = await client.query(
-            `INSERT INTO comments ( text, userId, gameId)
-       VALUES ($1, $2, $3)
+            `INSERT INTO comments ( text, username, "userId", "reviewId")
+       VALUES ($1, $2, $3, $4)
        RETURNING *`,
-       [comments.text, comments.userId, comments.gameId]
+       [comments.text, comments.username, comments.userId, comments.reviewId]
         );
+        return rows[0]
     } catch(error){
         console.log(error);
     }
@@ -424,7 +443,7 @@ async function updateCommentById(commentId, fields = {}) {
     } catch (error) {
       throw error;
     }
-  }
+}
 //end of comments and revie
 module.exports = {
     fetchAllGames,

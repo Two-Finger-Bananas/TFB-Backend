@@ -241,7 +241,7 @@ async function deleteReview(req, res) {
             const userFromDb = await fetchUserByUsername(auth.username)
             if ( userFromDb) {
                 const response = await deleteReviewById(Number(req.params.id))
-                res.send({response, message: "Game deleted"})
+                res.send({response, message: "Review deleted"})
             } else {
                 res.send({error: true, message: "Failed to delete review."})
             }

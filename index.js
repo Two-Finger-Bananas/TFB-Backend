@@ -130,7 +130,7 @@ async function updateAGame(req,res){
             expiresIn: "1w"
         })
         if(newJWTToken) {
-            const newUserForDb = await createNewUser(req.body)
+            const newUserForDb = await createNewUser(response)
             if(newUserForDb) {
                 res.send({userData: newUserForDb, token: newJWTToken}).status(200)
             } else {
@@ -150,7 +150,7 @@ async function updateAGame(req,res){
     try {
 
         if (!req.body.username || !req.body.password){
-            res.send({error: true, message: "Youe username or password is incorrect"})
+            res.send({error: true, message: "Your username or password is incorrect"})
         } else{
             const user = await fetchUserByUsername(req.body.username)
         console.log(user, 'user')
@@ -159,11 +159,10 @@ async function updateAGame(req,res){
                     const JWTToken = await jwt.sign(response, process.env.JWT_SECRET, {
                         expiresIn: "1w"
                     })
-                    console.log(JWTToken, '!!!!')
                     if(JWTToken) {
                         
                         if(user) {
-                            res.send({userData: user.username, token: JWTToken}).status(200)
+                            res.send({userData: user, token: JWTToken}).status(200)
                         } else {
                             res.send({error: true, message: "Failed to login. Please try again"}).status(403)
                         }

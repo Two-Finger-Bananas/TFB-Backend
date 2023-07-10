@@ -96,8 +96,8 @@ async function destroyTables() {
         console.log(error);
     }
 }
-//test code
-async function updateGameById(gameId, fields = {}) {
+
+/*async function updateGameById(gameId, fields = {}) {
     const setString = Object.keys(fields).map(
       (key, index) => `"${key}"=$${index + 1}`
     ).join(', ');
@@ -117,8 +117,8 @@ async function updateGameById(gameId, fields = {}) {
     } catch (error) {
       throw error;
     }
-  }
-  //test code end
+  }*/
+  
 
 async function createNewUser(userOb) {
     try {

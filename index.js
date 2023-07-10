@@ -28,7 +28,8 @@ app.get('/', (req, res) => {
 })
 
 const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername,fetchReviews,
-    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, updateCommentById, deleteCommentById } = require("./db/seedData")
+    fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, updateCommentById, 
+    deleteCommentById, fetchCommentsByReviewId, fetchCommentsByUserId, fetchReviewsByGameId, fetchReviewsByUserId } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -200,14 +201,47 @@ app.get("/reviews", getAllReviews)
 async function getReviewById(req, res, next) {
     try {
         const response = await fetchReviewById(Number(req.params.id))
-
-        res.send(response)
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No review available with that id")
+        }
     } catch (error) {
         console.log(error)
     }
 }
 
 app.get("/reviews/:id", getReviewById)
+
+async function getReviewsByGameId(req, res, next) {
+    try {
+        const response = await fetchReviewsByGameId(Number(req.params.id))
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No reviews available")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/games/reviews/:id", getReviewsByGameId)
+
+async function getReviewsByUserId(req, res, next) {
+    try {
+        const response = await fetchReviewsByUserId(Number(req.params.id))
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No reviews available")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/users/reviews/:id", getReviewsByUserId)
 
 async function postNewReview(req, res, next) {
     try {
@@ -297,14 +331,47 @@ app.get("/comments", getAllComments)
 async function getCommentById(req, res, next) {
     try {
         const response = await fetchCommentsById(Number(req.params.id))
-
-        res.send(response)
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No comments available")
+        }
     } catch (error) {
         console.log(error)
     }
 }
 
 app.get("/comments/:id", getCommentById)
+
+async function getCommentsByReviewId(req, res, next) {
+    try {
+        const response = await fetchCommentsByReviewId(Number(req.params.id))
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No comments available")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/reviews/comments/:id", getCommentsByReviewId)
+
+async function getCommentsByUserId(req, res, next) {
+    try {
+        const response = await fetchCommentsByUserId(Number(req.params.id))
+        if (response.length) {
+            res.send(response)
+        } else {
+            res.send("No comments available")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+app.get("/users/comments/:id", getCommentsByUserId)
 
 async function postNewComment(req, res, next) {
     try {

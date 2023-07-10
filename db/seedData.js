@@ -329,24 +329,58 @@ async function fetchReviews(){
 }
 
 async function fetchReviewById(reviewId){
-try {
-    const { rows } = await client.query(`
-        SELECT * FROM reviews
-        WHERE "reviewId" = $1
-    `, [reviewId])
-    return rows[0]
-} catch (error) {
-    console.log(error)
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM reviews
+            WHERE "reviewId" = $1;
+        `, [reviewId])
+        return rows[0]
+    } catch (error) {
+        console.log(error)
+    }
 }
+
+async function fetchReviewsByGameId(gameId){
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM reviews
+            WHERE "gameId" = $1;
+        `, [gameId])
+        return rows
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function fetchReviewsByUserId(userId){
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM reviews
+            WHERE "userId" = $1;
+        `, [userId])
+        return rows
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 async function deleteReviewById(reviewId) {
     try{
         const { rows } = await client.query(`
+            DELETE FROM comments
+            WHERE "reviewId" = $1
+            RETURNING *;
+        `, [reviewId])
+        const sqlResponse = await client.query(`
             DELETE FROM reviews
             WHERE "reviewId" = $1
             RETURNING *;
         `, [reviewId])
+        const actualData = {
+            comments: rows,
+            review: sqlResponse.rows[0]
+        }
+        return actualData
     } catch(error){
         console.log(error); 
     }
@@ -401,15 +435,39 @@ async function fetchComments(){
 }
 
 async function fetchCommentsById(commentId){
-try {
-    const { rows } = await client.query(`
-        SELECT * FROM comments
-        WHERE "commentId" = $1
-    `, [commentId])
-    return rows[0]
-} catch (error) {
-    console.log(error)
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM comments
+            WHERE "commentId" = $1;
+        `, [commentId])
+        return rows[0]
+    } catch (error) {
+        console.log(error)
+    }
 }
+
+async function fetchCommentsByReviewId(reviewId){
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM comments
+            WHERE "reviewId" = $1;
+        `, [reviewId])
+        return rows
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function fetchCommentsByUserId(userId){
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM comments
+            WHERE "userId" = $1;
+        `, [userId])
+        return rows
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 async function deleteCommentById(commentId) {
@@ -456,6 +514,8 @@ module.exports = {
     //new exports:
     fetchReviews,
     fetchReviewById,
+    fetchReviewsByGameId,
+    fetchReviewsByUserId,
     createReviews,
     deleteReviewById,
     updateReviewById,
@@ -464,5 +524,7 @@ module.exports = {
     fetchCommentsById,
     deleteCommentById,
     updateCommentById,
+    fetchCommentsByReviewId,
+    fetchCommentsByUserId,
     buildDatabase
 }

@@ -19,7 +19,7 @@ async function createTables() {
                 username VARCHAR(255) UNIQUE NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 email VARCHAR(255) UNIQUE NOT NULL,
-                is_admin BOOLEAN DEFAULT false
+                is_admin BOOLEAN DEFAULT false NOT NULL
             );
 
             CREATE TABLE reviews(
@@ -125,7 +125,7 @@ async function createNewUser(userOb) {
         const { rows } = await client.query(`
             INSERT INTO users(username, password, email, is_admin)
             VALUES($1, $2, $3, $4)
-            RETURNING username;
+            RETURNING username, email, is_admin;
         `, [userOb.username, userOb.password, userOb.email, userOb.is_admin])
 
         if(rows.length) {

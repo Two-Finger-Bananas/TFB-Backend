@@ -238,7 +238,7 @@ async function deleteReview(req, res) {
         const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
         if (auth) {
             const userFromDb = await fetchUserByUsername(auth.username)
-            if ( userFromDb) {
+            if ( userFromDb ) {
                 const response = await deleteReviewById(Number(req.params.id))
                 res.send({response, message: "Review deleted"})
             } else {
@@ -274,7 +274,7 @@ async function updateAReview(req,res){
         console.log(error);
     }
 }
- app.patch("/reviews/:id", updateAReview);
+ app.patch("/reviews/update/:id", updateAReview);
 
  
  // code for comments:

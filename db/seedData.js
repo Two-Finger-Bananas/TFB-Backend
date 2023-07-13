@@ -36,7 +36,8 @@ async function createTables() {
                 text VARCHAR(255) NOT NULL,
                 username VARCHAR(255) NOT NULL,
                 "userId" INTEGER REFERENCES users("userId"),
-                "reviewId" INTEGER REFERENCES reviews("reviewId")
+                "reviewId" INTEGER REFERENCES reviews("reviewId"),
+                "gameId" INTEGER REFERENCES games("gameId")
             );  
         `)
     } catch (error) {
@@ -96,30 +97,7 @@ async function destroyTables() {
         console.log(error);
     }
 }
-
-/*async function updateGameById(gameId, fields = {}) {
-    const setString = Object.keys(fields).map(
-      (key, index) => `"${key}"=$${index + 1}`
-    ).join(', ');
-    if (setString.length === 0) {
-      return;
-    }
   
-    try {
-      const { rows: [games] } = await client.query(`
-        UPDATE games
-        SET ${setString}
-        WHERE "gameId" = ${gameId}
-        RETURNING *;
-      `,Object.values(fields));
-  
-      return games;
-    } catch (error) {
-      throw error;
-    }
-  }*/
-  
-
 async function createNewUser(userOb) {
     try {
         const { rows } = await client.query(`
@@ -147,6 +125,21 @@ async function fetchUserByUsername(username) {
         
         if(rows.length) {
             return rows[0]
+        } else {
+            return undefined
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function fetchAllUsers() {
+    try {
+        const { rows } = await client.query(`
+                SELECT * FROM users;
+        `)
+        if(rows.length) {
+            return rows
         } else {
             return "Failed to fetch users "
         }
@@ -184,7 +177,7 @@ async function fetchGameById(idValue) {
     try {
         const { rows } = await client.query(`
             SELECT * FROM games
-            WHERE "gameId" = $1
+            WHERE "gameId" = $1;
         `, [idValue])
         return rows[0]
     } catch (error) {
@@ -195,10 +188,26 @@ async function fetchGameById(idValue) {
 async function deleteGameById(gameId) {
     try{
         const { rows } = await client.query(`
+            DELETE FROM comments
+            WHERE "reviewId" = $1
+            RETURNING *;
+        `, [gameId])
+        const reviews = await client.query(`
+            DELETE FROM reviews
+            WHERE "gameId" = $1
+            RETURNING *;
+        `, [gameId])
+        const game = await client.query(`
             DELETE FROM games
             WHERE "gameId" = $1
             RETURNING *;
         `, [gameId])
+        const deletedData = {
+            comments: rows,
+            reviews: reviews.rows,
+            game: game.rows[0]
+        }
+        return deletedData
     } catch(error){
         console.log(error); 
     }
@@ -285,14 +294,16 @@ async function buildDatabase() {
             "text": "It's not ok",
             "username": "george",
             "userId": 2,
-            "reviewId": 1
+            "reviewId": 1,
+            "gameId": 1
           })
 
           const testCommentTwo = await createComments({
             "text": "This is great!",
             "username": "mason",
             "userId": 1,
-            "reviewId": 1
+            "reviewId": 1,
+            "gameId": 1
           })
 
         const allGames = await fetchAllGames()
@@ -308,13 +319,22 @@ async function buildDatabase() {
 async function createReviews(reviews){
     // console.log(reviews)
     try{
+        const check = await client.query(`
+        SELECT * FROM reviews
+        WHERE "userId" = $1 AND "gameId" = $2;
+        `, [reviews.userId, reviews.gameId])
+        // console.log(check)
+        if(!check.rows.length) {
         const { rows } = await client.query(
         `INSERT INTO reviews(text, rating, username, "userId", "gameId")
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *; `,
         [reviews.text, reviews.rating, reviews.username, reviews.userId, reviews.gameId]
-        );
+        );  
         return rows[0]
+        } else{
+            return;
+        }
     } catch(error){
         console.log(error);
     }
@@ -413,10 +433,10 @@ async function updateReviewById(reviewId, fields = {}) {
 async function createComments(comments){
     try{
         const { rows } = await client.query(
-            `INSERT INTO comments ( text, username, "userId", "reviewId")
-       VALUES ($1, $2, $3, $4)
-       RETURNING *`,
-       [comments.text, comments.username, comments.userId, comments.reviewId]
+            `INSERT INTO comments(text, username, "userId", "reviewId", "gameId")
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;`,
+       [comments.text, comments.username, comments.userId, comments.reviewId, comments.gameId]
         );
         return rows[0]
     } catch(error){
@@ -502,7 +522,7 @@ async function updateCommentById(commentId, fields = {}) {
       throw error;
     }
 }
-//end of comments and revie
+//end of comments and review
 module.exports = {
     fetchAllGames,
     fetchGameById,
@@ -511,6 +531,7 @@ module.exports = {
     updateGameById,
     createNewUser,
     fetchUserByUsername,
+    fetchAllUsers,
     //new exports:
     fetchReviews,
     fetchReviewById,

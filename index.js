@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
-const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername,fetchReviews,
+const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername, fetchAllUsers, fetchReviews,
     fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, updateCommentById, 
     deleteCommentById, fetchCommentsByReviewId, fetchCommentsByUserId, fetchReviewsByGameId, fetchReviewsByUserId } = require("./db/seedData")
 
@@ -86,7 +86,7 @@ async function deleteGame(req, res) {
         const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
         if (auth) {
             const userFromDb = await fetchUserByUsername(auth.username)
-            if ( userFromDb) {
+            if ( userFromDb ) {
                 const response = await deleteGameById(Number(req.params.id))
                 res.send({response, message: "Game deleted"})
             } else {
@@ -181,6 +181,36 @@ async function updateAGame(req,res){
 
  app.post("/user/login", loginUser)
 
+ async function getAllUsers(req, res) {
+    try {
+        const response = await fetchAllUsers()
+        if(response.length) {
+            res.send(response)
+        } else {
+            res.send("Failed to fetch users")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+ }
+
+ app.get("/user", getAllUsers)
+
+ async function getUserById(req,res) {
+    try {
+        const response = await fetchUserByUsername()
+        if (response) {
+            res.send(response)
+        } else {
+            res.send("Failed to find user.")
+        }
+    } catch (error) {
+        console.log(error)
+    }
+ }
+
+ app.get('/user/:id', getUserById)
+
  //code for reviews:
 
  async function getAllReviews(req, res, next) {
@@ -201,7 +231,7 @@ app.get("/reviews", getAllReviews)
 async function getReviewById(req, res, next) {
     try {
         const response = await fetchReviewById(Number(req.params.id))
-        if (response.length) {
+        if (response) {
             res.send(response)
         } else {
             res.send("No review available with that id")
@@ -219,7 +249,7 @@ async function getReviewsByGameId(req, res, next) {
         if (response.length) {
             res.send(response)
         } else {
-            res.send("No reviews available")
+            res.send({message: "No reviews available"})
         }
     } catch (error) {
         console.log(error)
@@ -234,7 +264,7 @@ async function getReviewsByUserId(req, res, next) {
         if (response.length) {
             res.send(response)
         } else {
-            res.send("No reviews available")
+            res.send({message: "No reviews available"})
         }
     } catch (error) {
         console.log(error)
@@ -249,7 +279,7 @@ async function postNewReview(req, res, next) {
         const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
         if (auth) {
             const userFromDb = await fetchUserByUsername(auth.username)
-            if ( userFromDb) {
+            if (userFromDb) {
                 const response = await createReviews(req.body)
                 console.log(response)
                 res.send(response)
@@ -349,7 +379,7 @@ async function getCommentsByReviewId(req, res, next) {
         if (response.length) {
             res.send(response)
         } else {
-            res.send("No comments available")
+            res.send({message: "No comments available"})
         }
     } catch (error) {
         console.log(error)
@@ -364,7 +394,7 @@ async function getCommentsByUserId(req, res, next) {
         if (response.length) {
             res.send(response)
         } else {
-            res.send("No comments available")
+            res.send({message: "No comments available"})
         }
     } catch (error) {
         console.log(error)

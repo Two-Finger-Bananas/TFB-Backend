@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
 const { fetchAllGames, fetchGameById, createNewGame, deleteGameById, updateGameById, createNewUser, fetchUserByUsername, fetchAllUsers, fetchReviews,
     fetchReviewById, createReviews, deleteReviewById, updateReviewById, createComments, fetchComments, fetchCommentsById, updateCommentById, 
-    deleteCommentById, fetchCommentsByReviewId, fetchCommentsByUserId, fetchReviewsByGameId, fetchReviewsByUserId } = require("./db/seedData")
+    deleteCommentById, fetchCommentsByReviewId, fetchCommentsByUserId, fetchReviewsByGameId, fetchReviewsByUserId, updateUserById } = require("./db/seedData")
 
 async function getAllGames(req, res, next) {
     try {
@@ -64,7 +64,7 @@ async function postNewGame(req, res, next) {
         const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
         if (auth) {
             const userFromDb = await fetchUserByUsername(auth.username)
-            if ( userFromDb) {
+            if (userFromDb) {
                 const response = await createNewGame(req.body)
                 res.send(response)
             } else {
@@ -211,6 +211,30 @@ async function updateAGame(req,res){
 
  app.get('/user/:id', getUserById)
 
+ async function updateUser(req,res) {
+    try{
+        const myAuthToken = req.headers.authorization.slice(7)
+        const auth = jwt.verify(myAuthToken, process.env.JWT_SECRET)
+        if (auth) {
+            const userFromDb = await fetchUserByUsername(auth.username)
+            if ( userFromDb ) {
+                let userId = Number(req.params.id);
+                let actualupdateUser = req.body;
+                const newUpdatedUser= await updateUserById(userId, actualupdateUser);
+                res.send(newUpdatedUser)
+            } else {
+                res.send({error: true, message: "Failed to update user info."})
+            }
+        } else {
+            res.send({error: true, message: "Failed to decrypt token."})
+        }
+    } catch(error){
+        console.log(error);
+    }
+}
+
+app.get('user/update/:id', updateUser)
+
  //code for reviews:
 
  async function getAllReviews(req, res, next) {
@@ -264,7 +288,7 @@ async function getReviewsByUserId(req, res, next) {
         if (response.length) {
             res.send(response)
         } else {
-            res.send({message: "No reviews available"})
+            res.send({error: false, message: "No reviews available"})
         }
     } catch (error) {
         console.log(error)
@@ -281,8 +305,11 @@ async function postNewReview(req, res, next) {
             const userFromDb = await fetchUserByUsername(auth.username)
             if (userFromDb) {
                 const response = await createReviews(req.body)
-                console.log(response)
+                if (response) {
                 res.send(response)
+            } else {
+                res.send({error: true, messsage: "Cannot create more than one review" })
+            }
             } else {
                 res.send({error: true, message: "You need to have an account before being able to post a review."})
             }

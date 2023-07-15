@@ -103,7 +103,7 @@ async function createNewUser(userOb) {
         const { rows } = await client.query(`
             INSERT INTO users(username, password, email, is_admin)
             VALUES($1, $2, $3, $4)
-            RETURNING username, email, is_admin;
+            RETURNING "userId", username, email, is_admin;
         `, [userOb.username, userOb.password, userOb.email, userOb.is_admin])
 
         if(rows.length) {
@@ -143,6 +143,27 @@ async function fetchAllUsers() {
         } else {
             return "Failed to fetch users "
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function updateUserById(userId, fields = {}) {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${key}" = $${index + 1}`
+    ).join(', ')
+    if (setString.length === 0) {
+        return;
+    }
+    try {
+        const { rows: [ users ] } = await client.query(`
+        UPDATE users
+        SET ${ setString }
+        WHERE "userId" = ${userId}
+        RETURNING *;
+        `, Object.values(fields))
+
+        return users
     } catch (error) {
         console.log(error)
     }
@@ -547,5 +568,6 @@ module.exports = {
     updateCommentById,
     fetchCommentsByReviewId,
     fetchCommentsByUserId,
-    buildDatabase
+    buildDatabase,
+    updateUserById
 }

@@ -11,7 +11,8 @@ async function createTables() {
                 genre TEXT,
                 platforms TEXT,
                 players TEXT,
-                "coverImg" TEXT
+                "coverImg" TEXT,
+                "backgroundImg" TEXT
             );
 
             CREATE TABLE users(
@@ -172,10 +173,10 @@ async function updateUserById(userId, fields = {}) {
 async function createNewGame(newGameObj) {
     try {
         const { rows } = await client.query(`
-            INSERT INTO games(title, "publishDate", "gameDeveloper", genre, platforms, players, "coverImg")
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            INSERT INTO games(title, "publishDate", "gameDeveloper", genre, platforms, players, "coverImg", "backgroundImg")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *;
-        `, [newGameObj.title, newGameObj.publishDate, newGameObj.gameDeveloper, newGameObj.genre, newGameObj.platforms, newGameObj.players, newGameObj. coverImg])
+        `, [newGameObj.title, newGameObj.publishDate, newGameObj.gameDeveloper, newGameObj.genre, newGameObj.platforms, newGameObj.players, newGameObj.coverImg, newGameObj.backgroundImg])
     } catch (error) {
         console.log(error)
     }
@@ -248,7 +249,8 @@ async function buildDatabase() {
             genre: ["Action", "Adventure"],
             platforms: ["Playstation", "Xbox", "PC"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/actual_1364906194_fnxfla.jpg"
+            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/actual_1364906194_fnxfla.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg"
         })
 
         const secondGame = await createNewGame({
@@ -258,7 +260,8 @@ async function buildDatabase() {
             genre: ["Action", "Adventure", "RPG"],
             platforms: ["Playstation", "Xbox", "PC", "Nintendo"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583641/Witcher_3_cover_art_f1pren.jpg"
+            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583641/Witcher_3_cover_art_f1pren.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg"
         })
 
         const thirdGame = await createNewGame({
@@ -268,7 +271,8 @@ async function buildDatabase() {
             genre: ["Shooter", "Puzzle"],
             platforms: ["Playstation", "Xbox", "PC", "Apple Macintosh", "Linux"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/portal_2_gsgbbx.jpg"
+            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/portal_2_gsgbbx.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg"
         })
 
         const fourthGame = await createNewGame({
@@ -278,7 +282,8 @@ async function buildDatabase() {
             genre: ["Action", "Adventire", "RPG"],
             platforms: ["PC", "Apple Macintosh"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png"
+            coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png",
+            backgroundImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1689663307/1656027_k1ac4t.jpg"
         })
 
         const fifthGame = await createNewGame({

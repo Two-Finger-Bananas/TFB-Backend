@@ -285,7 +285,108 @@ async function buildDatabase() {
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png",
             backgroundImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1689663307/1656027_k1ac4t.jpg"
         })
+
+        const fifthGame = await createNewGame({
+            title: "Tomb Raider (2013)",
+            publishDate: "March 2013",
+            gameDeveloper:"Crystal Dynamics",
+            genre: ["Action", "Adventure"],
+            platforms: ["PlayStation 4", "macOS", "PC", "Xbox One", "Xbox 360", "PlayStation 3"],
+            players: ["Singleplayer", "Multiplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677010/image_cbljuu.jpg"
+
+
+        })
         
+
+        const sixthGame = await createNewGame({
+            title: "Counter-Strike: Global Offensive",
+            publishDate: "Aug. 2012",          
+            gameDeveloper:"Valve Corporation",
+            genre: ["Action", "Shooter"],
+            platforms: ["PC", "Xbox 360", "PlayStation 3"],
+            players: ["Multiplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677059/image_axr4us.jpg"
+        })
+
+
+        const seventhGame = await createNewGame({
+            title: "Portal",
+            publishDate: "Oct. 2007",
+            gameDeveloper: "Valve",
+            genre: ["Adventure", "Puzzle"],
+            platforms: ["Android", "PlayStation 3", "Xbox 360", "Linux", "macOS", "PC", "Nintendo Switch"],
+            players: ["Singleplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677136/image_qktw4q.jpg"
+        })
+
+
+        const eigthGame  = await createNewGame({
+            title: "Left 4 Dead 2",
+            publishDate: "2009-11-17",
+            gameDeveloper: "Valve",
+            genre: ["Action", "Shooter"],
+            platforms: ["macOS", "Linux", "PC", "Xbox 360"],
+            players: ["Singleplayer", "Multiplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677175/image_mu9mkd.jpg"
+        })
+
+
+
+        const ninthGame = await createNewGame({
+            title: "The Elder Scrolls V: Skyrim",
+            publishDate: "Nov. 2011",
+            gameDeveloper: "TBA",
+            genre: ["Action", "RPG"],
+            platforms: ["PC", "Nintendo Switch", "Xbox 360", "PlayStation 3"],
+            players: ["Singleplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677213/image_vaqkpj.jpg",
+        })
+
+        const tenthGame = await createNewGame({
+            title: "BioShock Infinite",
+            publishDate: "2013-03-26",
+            gameDeveloper: "TBA",
+            genre: ["Action", "Shooter"],
+            platforms: ["PlayStation 4", "Xbox 360", "Nintendo Switch", "Linux", "PC", "PlayStation 3", "Xbox One"],
+            players: ["Singleplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677250/image_bgwkaf.jpg"
+
+        })
+
+
+        const eleventhGame = await createNewGame({
+            title: "Red Dead Redemption 2",
+            publishDate: "Oct. 2018",
+            gameDeveloper:"Rockstar Games" ,
+            genre: ["Action", "Adventure"],
+            platforms: ["PC", "PlayStation 4", "Xbox One"],
+            players: ["Singleplayer", "Multiplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677297/image_wbhwd1.jpg",
+        })
+
+        const twelvthGame = await createNewGame({
+            title: "Life is Strange",
+            publishDate: "Jan. 2015",
+            gameDeveloper: "TBA" ,
+            genre: ["Adventure"],
+            platforms: ["PC", "Linux", "PlayStation 3", "macOS", "iOS", "Xbox 360", "Android", "PlayStation 4", "Xbox One"],
+            players: ["Singleplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677315/image_cty5ig.jpg"
+
+
+        })
+
+        const  thirteenthGame = await createNewGame({
+            title: "Borderlands 2",
+            publishDate: "2012-09-18",
+            gameDeveloper: "TBA",
+            genre: ["Action", "Shooter", "RPG"],
+            platforms: ["PlayStation 3", "macOS", "PC", "Android", "Linux", "PS Vita", "Xbox 360"],
+            players: ["Singleplayer", "Multiplayer"],
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677339/image_jnwowv.jpg"
+        })
+
         const testUserOne = await createNewUser({
             "username": "mason",
             "password": "walker",

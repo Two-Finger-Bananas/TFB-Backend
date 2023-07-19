@@ -392,6 +392,64 @@ async function buildDatabase() {
             backgroundImg: "https://media.rawg.io/media/games/49c/49c3dfa4ce2f6f140cc4825868e858cb.jpg"
         })
 
+        const fourtheen = await createNewGame({
+            title: "Half-Life 2",
+            publishDate: "2004-11-16",
+            gameDeveloper: "TBA",
+            genre: "Action, Shooter",
+            platforms: "PC, macOS, Xbox 360, Linux, Xbox, Android",
+            players: "Singleplayer, Multiplayer",
+            coverImg: "TBA",
+            backgroundImg:"https://media.rawg.io/media/games/b8c/b8c243eaa0fbac8115e0cdccac3f91dc.jpg"
+        })
+
+        const fifteen = await createNewGame({
+            title: "BioShock",
+            publishDate: "2007-08-21",
+            gameDeveloper: "TBA",
+            genre: "Action, Shooter",
+            platforms: "PlayStation 3, macOS, PC, Xbox 360",
+            players: "Singleplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/bc0/bc06a29ceac58652b684deefe7d56099.jpg"
+        })
+
+        const sixteen = await createNewGame({
+            title: "Limbo",
+            publishDate: "2010-07-21",
+            gameDeveloper: "TBA",
+            genre: "Adventure, Indie, Puzzle, Platformer",
+            platforms: "Linux, PS Vita, Android, Xbox One, Nintendo Switch, iOS, PC, macOS, Xbox 360, PlayStation 3, PlayStation 4",
+            players: "Singleplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/942/9424d6bb763dc38d9378b488603c87fa.jpg"
+        })
+
+        const seventeen = await createNewGame({
+            title: "God of War (2018)",
+            publishDate: "2018-04-20",
+            gameDeveloper: "TBA",
+            genre: "Action, Adventure, RPG",
+            platforms: "PC, PlayStation 4",
+            players: "Singleplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/4be/4be6a6ad0364751a96229c56bf69be59.jpg"
+        })
+
+        const eighteen = await createNewGame({
+            title: "Destiny 2",
+            publishDate: "2017-09-06",
+            gameDeveloper: "TBA",
+            genre: "Action, Shooter, Adventure, Massively Multiplayer",
+            platforms: "Xbox One, PC, PlayStation 4, Web, Xbox Series S/X, PlayStation 5",
+            players: "Singleplayer, Multiplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/34b/34b1f1850a1c06fd971bc6ab3ac0ce0e.jpg"
+        })
+
+
+
+
         const testUserOne = await createNewUser({
             "username": "mason",
             "password": "walker",
@@ -408,7 +466,7 @@ async function buildDatabase() {
         
         const testReviewOne = await createReviews({
             "text": "It's ok.",
-            "rating": 3,
+            "rating": [3],
             "username": "mason",
             "userId": 1,
             "gameId": 1
@@ -416,7 +474,7 @@ async function buildDatabase() {
 
         const testReviewTwo = await createReviews({
                 "text": "This sucks!",
-                "rating": 1,
+                "rating": [1],
                 "username": "george",
                 "userId": 2,
                 "gameId": 1    

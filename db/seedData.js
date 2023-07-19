@@ -246,7 +246,7 @@ async function buildDatabase() {
             title: "Grand Theft Auto V",
             publishDate: "Sep 2013",
             gameDeveloper: "Rockstar Games",
-            genre: ["Action", "Adventure"],
+            genre: "Action, Adventure",
             platforms: ["Playstation", "Xbox", "PC"],
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/actual_1364906194_fnxfla.jpg",
@@ -257,7 +257,7 @@ async function buildDatabase() {
             title: "The Witcher 3: Wild Hunt",
             publishDate: "May 2015",
             gameDeveloper: "CD Projekt Red",
-            genre: ["Action", "Adventure", "RPG"],
+            genre: "Action, Adventure, RPG",
             platforms: ["Playstation", "Xbox", "PC", "Nintendo"],
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583641/Witcher_3_cover_art_f1pren.jpg",
@@ -268,7 +268,7 @@ async function buildDatabase() {
             title: "Portal 2",
             publishDate: "Apr 2011",
             gameDeveloper: "Valve",
-            genre: ["Shooter", "Puzzle"],
+            genre: "Shooter, Puzzle",
             platforms: ["Playstation", "Xbox", "PC", "Apple Macintosh", "Linux"],
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/portal_2_gsgbbx.jpg",
@@ -279,7 +279,7 @@ async function buildDatabase() {
             title: "Diablo 2",
             publishDate: "Jun 2000",
             gameDeveloper: "Blizzard North",
-            genre: ["Action", "Adventire", "RPG"],
+            genre: "Action, Adventire, RPG",
             platforms: ["PC", "Apple Macintosh"],
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png",
@@ -290,12 +290,11 @@ async function buildDatabase() {
             title: "Tomb Raider (2013)",
             publishDate: "March 2013",
             gameDeveloper:"Crystal Dynamics",
-            genre: ["Action", "Adventure"],
+            genre: "Action, Adventure",
             platforms: ["PlayStation 4", "macOS", "PC", "Xbox One", "Xbox 360", "PlayStation 3"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677010/image_cbljuu.jpg"
-
-
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677010/image_cbljuu.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/021/021c4e21a1824d2526f925eff6324653.jpg"
         })
         
 
@@ -303,10 +302,11 @@ async function buildDatabase() {
             title: "Counter-Strike: Global Offensive",
             publishDate: "Aug. 2012",          
             gameDeveloper:"Valve Corporation",
-            genre: ["Action", "Shooter"],
+            genre: "Action, Shooter",
             platforms: ["PC", "Xbox 360", "PlayStation 3"],
             players: ["Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677059/image_axr4us.jpg"
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677059/image_axr4us.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/736/73619bd336c894d6941d926bfd563946.jpg"
         })
 
 
@@ -314,10 +314,11 @@ async function buildDatabase() {
             title: "Portal",
             publishDate: "Oct. 2007",
             gameDeveloper: "Valve",
-            genre: ["Adventure", "Puzzle"],
+            genre: "Adventure, Puzzle",
             platforms: ["Android", "PlayStation 3", "Xbox 360", "Linux", "macOS", "PC", "Nintendo Switch"],
             players: ["Singleplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677136/image_qktw4q.jpg"
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677136/image_qktw4q.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/7fa/7fa0b586293c5861ee32490e953a4996.jpg"
         })
 
 
@@ -325,10 +326,11 @@ async function buildDatabase() {
             title: "Left 4 Dead 2",
             publishDate: "2009-11-17",
             gameDeveloper: "Valve",
-            genre: ["Action", "Shooter"],
+            genre: "Action, Shooter",
             platforms: ["macOS", "Linux", "PC", "Xbox 360"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677175/image_mu9mkd.jpg"
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677175/image_mu9mkd.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg"
         })
 
 
@@ -337,20 +339,22 @@ async function buildDatabase() {
             title: "The Elder Scrolls V: Skyrim",
             publishDate: "Nov. 2011",
             gameDeveloper: "TBA",
-            genre: ["Action", "RPG"],
+            genre: "Action, RPG",
             platforms: ["PC", "Nintendo Switch", "Xbox 360", "PlayStation 3"],
             players: ["Singleplayer"],
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677213/image_vaqkpj.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/7cf/7cfc9220b401b7a300e409e539c9afd5.jpg"
         })
 
         const tenthGame = await createNewGame({
             title: "BioShock Infinite",
             publishDate: "2013-03-26",
             gameDeveloper: "TBA",
-            genre: ["Action", "Shooter"],
+            genre: "Action, Shooter",
             platforms: ["PlayStation 4", "Xbox 360", "Nintendo Switch", "Linux", "PC", "PlayStation 3", "Xbox One"],
             players: ["Singleplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677250/image_bgwkaf.jpg"
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677250/image_bgwkaf.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/fc1/fc1307a2774506b5bd65d7e8424664a7.jpg"
 
         })
 
@@ -359,32 +363,33 @@ async function buildDatabase() {
             title: "Red Dead Redemption 2",
             publishDate: "Oct. 2018",
             gameDeveloper:"Rockstar Games" ,
-            genre: ["Action", "Adventure"],
+            genre: "Action, Adventure",
             platforms: ["PC", "PlayStation 4", "Xbox One"],
             players: ["Singleplayer", "Multiplayer"],
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677297/image_wbhwd1.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg"
         })
 
         const twelvthGame = await createNewGame({
             title: "Life is Strange",
             publishDate: "Jan. 2015",
             gameDeveloper: "TBA" ,
-            genre: ["Adventure"],
+            genre: "Adventure",
             platforms: ["PC", "Linux", "PlayStation 3", "macOS", "iOS", "Xbox 360", "Android", "PlayStation 4", "Xbox One"],
             players: ["Singleplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677315/image_cty5ig.jpg"
-
-
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677315/image_cty5ig.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/562/562553814dd54e001a541e4ee83a591c.jpg"
         })
 
         const  thirteenthGame = await createNewGame({
             title: "Borderlands 2",
             publishDate: "2012-09-18",
             gameDeveloper: "TBA",
-            genre: ["Action", "Shooter", "RPG"],
+            genre: "Action, Shooter, RPG",
             platforms: ["PlayStation 3", "macOS", "PC", "Android", "Linux", "PS Vita", "Xbox 360"],
             players: ["Singleplayer", "Multiplayer"],
-            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677339/image_jnwowv.jpg"
+            coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677339/image_jnwowv.jpg",
+            backgroundImg: "https://media.rawg.io/media/games/49c/49c3dfa4ce2f6f140cc4825868e858cb.jpg"
         })
 
         const testUserOne = await createNewUser({

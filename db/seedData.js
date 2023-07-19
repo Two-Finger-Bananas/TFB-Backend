@@ -460,7 +460,242 @@ async function buildDatabase() {
 
         })
 
+        const nineteen = await createNewGame({
+            title: "Fallout 4",
 
+            publishDate: "2015-11-09",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, RPG",
+            
+            platforms: "Xbox One, PC, PlayStation 4",
+            
+            players: "Singleplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/d82/d82990b9c67ba0d2d09d4e6fa88885a7.jpg"
+        })
+
+const twenty = await createNewGame({
+    title: "DOOM (2016)",
+
+    publishDate: "2016-05-13",
+    
+    gameDeveloper: "TBA",
+    
+    genre: "Action, Shooter",
+    
+    platforms: "Xbox One, PC, Nintendo Switch, PlayStation 4",
+    
+    players: "Singleplayer, Multiplayer",
+    
+    coverImg:"TBA",
+    
+    backgroundImg:"https://media.rawg.io/media/games/c4b/c4b0cab189e73432de3a250d8cf1c84e.jpg"          
+        })
+
+        const twentyone= await createNewGame({
+            title: "Team Fortress 2",
+
+            publishDate: "2007-10-10",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Shooter",
+            
+            platforms: "PC, macOS, Linux",
+            
+            players: "Multiplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/46d/46d98e6910fbc0706e2948a7cc9b10c5.jpg"      
+        })
+
+
+        const twentytwo= await createNewGame({
+            title: "PAYDAY 2",
+
+            publishDate: "2013-08-13",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Shooter",
+            
+            platforms: "Linux, PC, Xbox One",
+            
+            players: "Singleplayer, Multiplayer",
+            
+            coverImg:"TBA"
+            ,
+            backgroundImg: "https://media.rawg.io/media/games/73e/73eecb8909e0c39fb246f457b5d6cbbe.jpg"
+            
+                 
+        })
+
+
+        const twentythree= await createNewGame({
+            title: "Horizon Zero Dawn",
+
+            publishDate: "2017-02-28",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Adventure, RPG",
+            
+            platforms: "PlayStation 4, PC",
+            
+            players: "Singleplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/b7d/b7d3f1715fa8381a4e780173a197a615.jpg"
+            
+                  
+        })
+
+
+        const twentyfour= await createNewGame({
+            title: "Grand Theft Auto IV",
+
+            publishDate: "2008-04-29",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Adventure",
+            
+            platforms: "Xbox 360, PlayStation 3, Xbox One, PC",
+            
+            players: "Singleplayer, Multiplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg:" https://media.rawg.io/media/games/4a0/4a0a1316102366260e6f38fd2a9cfdce.jpg"
+            
+                 
+        })
+
+
+        const twentyfive= await createNewGame({
+            
+            title: "Rocket League",
+
+            publishDate: "2015-07-07",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Sports, Racing, Indie",
+            
+            platforms:" Nintendo Switch, Linux, macOS, Xbox One, PC, PlayStation 4",
+            
+            players: "Singleplayer, Multiplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/8cc/8cce7c0e99dcc43d66c8efd42f9d03e3.jpg" 
+        })
+
+        const twentysix = await createNewGame({
+            title: "Cyberpunk 2077",
+
+            publishDate: "2020-12-10",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Adventure, RPG",
+            
+            platforms: "PlayStation 4, PC, Xbox Series S/X, PlayStation 5, Xbox One",
+            
+            players: "Singleplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/26d/26d4437715bee60138dab4a7c8c59c92.jpg"
+            
+                 
+        })
+
+        const twentyseven= await createNewGame({
+            
+        
+        title: "Terraria",
+
+        publishDate: "2011-05-16",
+        
+        gameDeveloper: "TBA",
+        
+        genre: "Action, Indie, Platformer",
+        
+        platforms: "Xbox 360, Wii U, Nintendo 3DS, Xbox One, PlayStation 4, iOS, PC, macOS, Linux, Nintendo Switch, PlayStation 3, PS Vita, Android",
+        
+        players: "Singleplayer, Multiplayer",
+        
+        coverImg:"TBA",
+        
+        backgroundImg: "https://media.rawg.io/media/games/f46/f466571d536f2e3ea9e815ad17177501.jpg"
+    })
+        
+        const twentyeight= await createNewGame({
+            title: "Dota 2",
+
+            publishDate: "2013-07-09",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Massively Multiplayer",
+            
+            platforms: "Linux, macOS, PC",
+            
+            players: "Multiplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/6fc/6fcf4cd3b17c288821388e6085bb0fc9.jpg"
+            
+               
+        })
+
+        const twentynine= await createNewGame({
+            title: "Warframe",
+
+            publishDate: "2013-03-25",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Shooter, Massively Multiplayer",
+            
+            platforms: "Xbox Series S/X, PlayStation 5, PlayStation 4, Xbox One, Nintendo Switch, PC",
+            
+            players: "Singleplayer, Multiplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/f87/f87457e8347484033cb34cde6101d08d.jpg"
+            
+                 
+        })
+
+        const thirty= await createNewGame({
+            title: "Metro 2033",
+
+            publishDate: "2010-03-16",
+            
+            gameDeveloper: "TBA",
+            
+            genre: "Action, Shooter",
+            
+            platforms: "Xbox 360, PC",
+            
+            players: "Singleplayer",
+            
+            coverImg:"TBA",
+            
+            backgroundImg: "https://media.rawg.io/media/games/120/1201a40e4364557b124392ee50317b99.jpg"
+            
+                 
+        })
 
 
         const testUserOne = await createNewUser({
@@ -479,7 +714,7 @@ async function buildDatabase() {
         
         const testReviewOne = await createReviews({
             "text": "It's ok.",
-            "rating": [3],
+            "rating": 3,
             "username": "mason",
             "userId": 1,
             "gameId": 1
@@ -487,7 +722,7 @@ async function buildDatabase() {
 
         const testReviewTwo = await createReviews({
                 "text": "This sucks!",
-                "rating": [1],
+                "rating": 1,
                 "username": "george",
                 "userId": 2,
                 "gameId": 1    

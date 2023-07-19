@@ -247,8 +247,8 @@ async function buildDatabase() {
             publishDate: "Sep 2013",
             gameDeveloper: "Rockstar Games",
             genre: "Action, Adventure",
-            platforms: ["Playstation", "Xbox", "PC"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "Playstation,Xbox,PC",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/actual_1364906194_fnxfla.jpg",
             backgroundImg: "https://media.rawg.io/media/games/456/456dea5e1c7e3cd07060c14e96612001.jpg"
         })
@@ -258,8 +258,8 @@ async function buildDatabase() {
             publishDate: "May 2015",
             gameDeveloper: "CD Projekt Red",
             genre: "Action, Adventure, RPG",
-            platforms: ["Playstation", "Xbox", "PC", "Nintendo"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "Playstation,Xbox,PC, Nintendo",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583641/Witcher_3_cover_art_f1pren.jpg",
             backgroundImg: "https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg"
         })
@@ -269,8 +269,8 @@ async function buildDatabase() {
             publishDate: "Apr 2011",
             gameDeveloper: "Valve",
             genre: "Shooter, Puzzle",
-            platforms: ["Playstation", "Xbox", "PC", "Apple Macintosh", "Linux"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "Playstation,Xbox,PC,Apple Macintosh,Linux",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583670/portal_2_gsgbbx.jpg",
             backgroundImg: "https://media.rawg.io/media/games/328/3283617cb7d75d67257fc58339188742.jpg"
         })
@@ -280,8 +280,8 @@ async function buildDatabase() {
             publishDate: "Jun 2000",
             gameDeveloper: "Blizzard North",
             genre: "Action, Adventire, RPG",
-            platforms: ["PC", "Apple Macintosh"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "PC,Apple Macintosh",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1688583669/Diablo_II_Coverart_vye1nj.png",
             backgroundImg: "https://res.cloudinary.com/dvto5eysb/image/upload/v1689663307/1656027_k1ac4t.jpg"
         })
@@ -291,8 +291,8 @@ async function buildDatabase() {
             publishDate: "March 2013",
             gameDeveloper:"Crystal Dynamics",
             genre: "Action, Adventure",
-            platforms: ["PlayStation 4", "macOS", "PC", "Xbox One", "Xbox 360", "PlayStation 3"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "PlayStation 4,macOS,PC,Xbox One,Xbox 360,PlayStation 3",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677010/image_cbljuu.jpg",
             backgroundImg: "https://media.rawg.io/media/games/021/021c4e21a1824d2526f925eff6324653.jpg"
         })
@@ -303,8 +303,8 @@ async function buildDatabase() {
             publishDate: "Aug. 2012",          
             gameDeveloper:"Valve Corporation",
             genre: "Action, Shooter",
-            platforms: ["PC", "Xbox 360", "PlayStation 3"],
-            players: ["Multiplayer"],
+            platforms: "PC,Xbox 360,PlayStation 3",
+            players: "Multiplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677059/image_axr4us.jpg",
             backgroundImg: "https://media.rawg.io/media/games/736/73619bd336c894d6941d926bfd563946.jpg"
         })
@@ -315,8 +315,8 @@ async function buildDatabase() {
             publishDate: "Oct. 2007",
             gameDeveloper: "Valve",
             genre: "Adventure, Puzzle",
-            platforms: ["Android", "PlayStation 3", "Xbox 360", "Linux", "macOS", "PC", "Nintendo Switch"],
-            players: ["Singleplayer"],
+            platforms: "Android,PlayStation 3,Xbox 360,Linux,macOS,PC,Nintendo Switch",
+            players: "Singleplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677136/image_qktw4q.jpg",
             backgroundImg: "https://media.rawg.io/media/games/7fa/7fa0b586293c5861ee32490e953a4996.jpg"
         })
@@ -327,8 +327,8 @@ async function buildDatabase() {
             publishDate: "2009-11-17",
             gameDeveloper: "Valve",
             genre: "Action, Shooter",
-            platforms: ["macOS", "Linux", "PC", "Xbox 360"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "macOS,Linux,PC,Xbox 360",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677175/image_mu9mkd.jpg",
             backgroundImg: "https://media.rawg.io/media/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg"
         })
@@ -340,8 +340,8 @@ async function buildDatabase() {
             publishDate: "Nov. 2011",
             gameDeveloper: "TBA",
             genre: "Action, RPG",
-            platforms: ["PC", "Nintendo Switch", "Xbox 360", "PlayStation 3"],
-            players: ["Singleplayer"],
+            platforms: "PC,Nintendo Switch,Xbox 360,PlayStation 3",
+            players: "Singleplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677213/image_vaqkpj.jpg",
             backgroundImg: "https://media.rawg.io/media/games/7cf/7cfc9220b401b7a300e409e539c9afd5.jpg"
         })
@@ -351,8 +351,8 @@ async function buildDatabase() {
             publishDate: "2013-03-26",
             gameDeveloper: "TBA",
             genre: "Action, Shooter",
-            platforms: ["PlayStation 4", "Xbox 360", "Nintendo Switch", "Linux", "PC", "PlayStation 3", "Xbox One"],
-            players: ["Singleplayer"],
+            platforms: "PlayStation 4,Xbox 360,Nintendo Switch,Linux,PC,PlayStation,Xbox One",
+            players: "Singleplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677250/image_bgwkaf.jpg",
             backgroundImg: "https://media.rawg.io/media/games/fc1/fc1307a2774506b5bd65d7e8424664a7.jpg"
 
@@ -364,8 +364,8 @@ async function buildDatabase() {
             publishDate: "Oct. 2018",
             gameDeveloper:"Rockstar Games" ,
             genre: "Action, Adventure",
-            platforms: ["PC", "PlayStation 4", "Xbox One"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "PCPlayStation 4,Xbox One",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677297/image_wbhwd1.jpg",
             backgroundImg: "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg"
         })
@@ -375,8 +375,8 @@ async function buildDatabase() {
             publishDate: "Jan. 2015",
             gameDeveloper: "TBA" ,
             genre: "Adventure",
-            platforms: ["PC", "Linux", "PlayStation 3", "macOS", "iOS", "Xbox 360", "Android", "PlayStation 4", "Xbox One"],
-            players: ["Singleplayer"],
+            platforms: "PC,Linux,PlayStation 3,macOS,iOS,Xbox 360,Android,PlayStation 4,Xbox One",
+            players: "Singleplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677315/image_cty5ig.jpg",
             backgroundImg: "https://media.rawg.io/media/games/562/562553814dd54e001a541e4ee83a591c.jpg"
         })
@@ -386,11 +386,82 @@ async function buildDatabase() {
             publishDate: "2012-09-18",
             gameDeveloper: "TBA",
             genre: "Action, Shooter, RPG",
-            platforms: ["PlayStation 3", "macOS", "PC", "Android", "Linux", "PS Vita", "Xbox 360"],
-            players: ["Singleplayer", "Multiplayer"],
+            platforms: "PlayStation 3,macOS,PC,Android,Linux,PS Vita,Xbox 360",
+            players: "Singleplayer,Multiplayer",
             coverImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689677339/image_jnwowv.jpg",
             backgroundImg: "https://media.rawg.io/media/games/49c/49c3dfa4ce2f6f140cc4825868e858cb.jpg"
         })
+
+        const fourtheen = await createNewGame({
+            title: "Half-Life 2",
+            publishDate: "2004-11-16",
+            gameDeveloper: "TBA",
+            genre: "Action, Shooter",
+            platforms: "PC, macOS, Xbox 360, Linux, Xbox, Android",
+            players: "Singleplayer, Multiplayer",
+            coverImg: "TBA",
+            backgroundImg:"https://media.rawg.io/media/games/b8c/b8c243eaa0fbac8115e0cdccac3f91dc.jpg"
+
+
+
+        })
+
+        const fifteen = await createNewGame({
+            title: "BioShock",
+            publishDate: "2007-08-21",
+            gameDeveloper: "TBA",
+            genre: "Action, Shooter",
+            platforms: "PlayStation 3, macOS, PC, Xbox 360",
+            players: "Singleplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/bc0/bc06a29ceac58652b684deefe7d56099.jpg"
+        })
+
+        const sixteen = await createNewGame({
+            title: "Limbo",
+            publishDate: "2010-07-21",
+            gameDeveloper: "TBA",
+            genre: "Adventure, Indie, Puzzle, Platformer",
+            platforms: "Linux, PS Vita, Android, Xbox One, Nintendo Switch, iOS, PC, macOS, Xbox 360, PlayStation 3, PlayStation 4",
+            players: "Singleplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/942/9424d6bb763dc38d9378b488603c87fa.jpg"
+
+
+
+
+        })
+
+        const seventeen = await createNewGame({
+            title: "God of War (2018)",
+            publishDate: "2018-04-20",
+            gameDeveloper: "TBA",
+            genre: "Action, Adventure, RPG",
+            platforms: "PC, PlayStation 4",
+            players: "Singleplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/4be/4be6a6ad0364751a96229c56bf69be59.jpg"
+
+
+        })
+
+        const eighteen = await createNewGame({
+            title: "Destiny 2",
+            publishDate: "2017-09-06",
+            gameDeveloper: "TBA",
+            genre: "Action, Shooter, Adventure, Massively Multiplayer",
+            platforms: "Xbox One, PC, PlayStation 4, Web, Xbox Series S/X, PlayStation 5",
+            players: "Singleplayer, Multiplayer",
+            coverImg:"TBA",
+            backgroundImg: "https://media.rawg.io/media/games/34b/34b1f1850a1c06fd971bc6ab3ac0ce0e.jpg"
+
+
+
+
+        })
+
+
+
 
         const testUserOne = await createNewUser({
             "username": "mason",
@@ -408,7 +479,7 @@ async function buildDatabase() {
         
         const testReviewOne = await createReviews({
             "text": "It's ok.",
-            "rating": 3,
+            "rating": [3],
             "username": "mason",
             "userId": 1,
             "gameId": 1
@@ -416,7 +487,7 @@ async function buildDatabase() {
 
         const testReviewTwo = await createReviews({
                 "text": "This sucks!",
-                "rating": 1,
+                "rating": [1],
                 "username": "george",
                 "userId": 2,
                 "gameId": 1    

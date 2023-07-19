@@ -418,6 +418,7 @@ app.get("/reviews/comments/:id", getCommentsByReviewId)
 async function getCommentsByUserId(req, res, next) {
     try {
         const response = await fetchCommentsByUserId(Number(req.params.id))
+        console.log(response)
         if (response.length) {
             res.send(response)
         } else {

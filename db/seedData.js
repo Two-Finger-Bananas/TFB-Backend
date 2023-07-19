@@ -466,7 +466,7 @@ async function buildDatabase() {
         
         const testReviewOne = await createReviews({
             "text": "It's ok.",
-            "rating": [3],
+            "rating": 3,
             "username": "mason",
             "userId": 1,
             "gameId": 1
@@ -474,7 +474,7 @@ async function buildDatabase() {
 
         const testReviewTwo = await createReviews({
                 "text": "This sucks!",
-                "rating": [1],
+                "rating": 1,
                 "username": "george",
                 "userId": 2,
                 "gameId": 1    

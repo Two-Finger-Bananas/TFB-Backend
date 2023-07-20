@@ -1208,7 +1208,6 @@ module.exports = {
     createNewUser,
     fetchUserByUsername,
     fetchAllUsers,
-    //new exports:
     fetchReviews,
     fetchReviewById,
     fetchReviewsByGameId,

@@ -383,7 +383,7 @@ async function buildDatabase() {
 
         const  thirteenthGame = await createNewGame({
             title: "Borderlands 2",
-            publishDate: "2012-09-18",
+            publishDate: "Sept. 2012",
             gameDeveloper: "Gearbox Software",
             genre: "Action, Shooter, RPG",
             platforms: "PlayStation 3,macOS,PC,Android,Linux,PS Vita,Xbox 360",
@@ -394,7 +394,7 @@ async function buildDatabase() {
 
         const fourtheen = await createNewGame({
             title: "Half-Life 2",
-            publishDate: "2004-11-16",
+            publishDate: "Nov. 2994",
             gameDeveloper: "Valve Corporation",
             genre: "Action, Shooter",
             platforms: "PC, macOS, Xbox 360, Linux, Xbox, Android",
@@ -408,7 +408,7 @@ async function buildDatabase() {
 
         const fifteen = await createNewGame({
             title: "BioShock",
-            publishDate: "2007-08-21",
+            publishDate: "Aug. 2007",
             gameDeveloper: "2K Boston",
             genre: "Action, Shooter",
             platforms: "PlayStation 3, macOS, PC, Xbox 360",
@@ -419,7 +419,7 @@ async function buildDatabase() {
 
         const sixteen = await createNewGame({
             title: "Limbo",
-            publishDate: "2010-07-21",
+            publishDate: "July 2010",
             gameDeveloper: "Playdead",
             genre: "Adventure, Indie, Puzzle, Platformer",
             platforms: "Linux, PS Vita, Android, Xbox One, Nintendo Switch, iOS, PC, macOS, Xbox 360, PlayStation 3, PlayStation 4",
@@ -434,7 +434,7 @@ async function buildDatabase() {
 
         const seventeen = await createNewGame({
             title: "God of War (2018)",
-            publishDate: "2018-04-20",
+            publishDate: "April 2018",
             gameDeveloper: "Santa Monica Studio",
             genre: "Action, Adventure, RPG",
             platforms: "PC, PlayStation 4",
@@ -447,7 +447,7 @@ async function buildDatabase() {
 
         const eighteen = await createNewGame({
             title: "Destiny 2",
-            publishDate: "2017-09-06",
+            publishDate: "Sept. 2017",
             gameDeveloper: " Bungie",
             genre: "Action, Shooter, Adventure, Massively Multiplayer",
             platforms: "Xbox One, PC, PlayStation 4, Web, Xbox Series S/X, PlayStation 5",
@@ -463,7 +463,7 @@ async function buildDatabase() {
         const nineteen = await createNewGame({
             title: "Fallout 4",
 
-            publishDate: "2015-11-09",
+            publishDate: "Nov. 2015",
             
             gameDeveloper: "Bethesda Game Studios",
             
@@ -481,7 +481,7 @@ async function buildDatabase() {
 const twenty = await createNewGame({
     title: "DOOM (2016)",
 
-    publishDate: "2016-05-13",
+    publishDate: "May 2016",
     
     gameDeveloper: "id Software",
     
@@ -499,7 +499,7 @@ const twenty = await createNewGame({
         const twentyone= await createNewGame({
             title: "Team Fortress 2",
 
-            publishDate: "2007-10-10",
+            publishDate: "Oct 2010",
             
             gameDeveloper: "Valve Corporation",
             
@@ -518,7 +518,7 @@ const twenty = await createNewGame({
         const twentytwo= await createNewGame({
             title: "PAYDAY 2",
 
-            publishDate: "2013-08-13",
+            publishDate: "Aug 2013",
             
             gameDeveloper: "Overkill Software",
             
@@ -539,7 +539,7 @@ const twenty = await createNewGame({
         const twentythree= await createNewGame({
             title: "Horizon Zero Dawn",
 
-            publishDate: "2017-02-28",
+            publishDate: "Feb 2017",
             
             gameDeveloper: "Guerrilla Games",
             
@@ -560,7 +560,7 @@ const twenty = await createNewGame({
         const twentyfour= await createNewGame({
             title: "Grand Theft Auto IV",
 
-            publishDate: "2008-04-29",
+            publishDate: "April 20089",
             
             gameDeveloper: "Rockstar North",
             
@@ -582,7 +582,7 @@ const twenty = await createNewGame({
             
             title: "Rocket League",
 
-            publishDate: "2015-07-07",
+            publishDate: "July 2015",
             
             gameDeveloper: "Psyonix",
             
@@ -600,7 +600,7 @@ const twenty = await createNewGame({
         const twentysix = await createNewGame({
             title: "Cyberpunk 2077",
 
-            publishDate: "2020-12-10",
+            publishDate: "Dec 2020",
             
             gameDeveloper: "CD Projekt Red",
             
@@ -622,7 +622,7 @@ const twenty = await createNewGame({
         
         title: "Terraria",
 
-        publishDate: "2011-05-16",
+        publishDate: " May 2011",
         
         gameDeveloper: "Re-Logic",
         
@@ -640,7 +640,7 @@ const twenty = await createNewGame({
         const twentyeight= await createNewGame({
             title: "Dota 2",
 
-            publishDate: "2013-07-09",
+            publishDate: "July 2013",
             
             gameDeveloper: "Valve Corporation",
             
@@ -650,7 +650,7 @@ const twenty = await createNewGame({
             
             players: "Multiplayer",
             
-            coverImg:"https://res.cloudinary.com/dlpwremao/image/upload/v1689782385/image_ksjicf.jpg",
+            coverImg:"https://res.cloudinary.com/dlpwremao/image/upload/v1689825262/300px-Dota_2_cover_wpeity.jpg",
             
             backgroundImg: "https://media.rawg.io/media/games/6fc/6fcf4cd3b17c288821388e6085bb0fc9.jpg"
             
@@ -660,7 +660,7 @@ const twenty = await createNewGame({
         const twentynine= await createNewGame({
             title: "Warframe",
 
-            publishDate: "2013-03-25",
+            publishDate: "March 2013",
             
             gameDeveloper: "Digital Extremes",
             
@@ -680,7 +680,7 @@ const twenty = await createNewGame({
         const thirty= await createNewGame({
             title: "Metro 2033",
 
-            publishDate: "2010-03-16",
+            publishDate: "March 2010",
             
             gameDeveloper: "4A Games",
             
@@ -697,6 +697,44 @@ const twenty = await createNewGame({
                  
         })
 
+        const thirtyone= await createNewGame({
+            title: "The Last Of Us",
+
+            publishDate: "June 2013",
+            
+            gameDeveloper: "Naughty Dog",
+            
+            genre: "Action, Adventure",
+            
+            platforms: "PlayStation 3, PlayStation 4",
+            
+            players: "Singleplayer",
+            
+            coverImg:"https://res.cloudinary.com/dlpwremao/image/upload/v1689819406/Video_Game_Cover_-_The_Last_of_Us_amthiz.jpg",
+            
+            backgroundImg: "https://res.cloudinary.com/dlpwremao/image/upload/v1689819594/yrqzxmmgambbpu0kxwrs.jpg"
+            
+                 
+        })
+        const thirtytwo= await createNewGame({
+            title: "The Last Of Us Part II",
+
+            publishDate: "June 2020",
+            
+            gameDeveloper: "Naughty Dog",
+            
+            genre: "Action, Adventure",
+            
+            platforms: " PlayStation 4",
+            
+            players: "Singleplayer",
+            
+            coverImg:"https://res.cloudinary.com/dlpwremao/image/upload/v1689819444/616_j9jEM4L._AC_UF894_1000_QL80__ohijsm.jpg",
+            
+            backgroundImg: "https://media.rawg.io/media/games/120/1201a40e4364557b124392ee50317b99.jpg"
+            
+                 
+        })
 
         const testUserOne = await createNewUser({
             "username": "mason",
@@ -822,6 +860,123 @@ const testReviewSix = await createReviews({
     "userId": 4,
     "gameId": 1    
 })
+const testReviewSeven = await createReviews({
+    "text": "Witcher 3 has become one of my all-time favorite RPGs. It's a masterpiece in terms of world-building and gameplay.",
+    "rating": 5,
+    "username": "LethalGamerX",
+    "userId": 7,
+    "gameId": 2    
+})
+
+const testRevieweight = await createReviews({
+    "text": "I enjoy getting lost in the side quests and activities. The world feels alive, and there's always something exciting to do!",
+    "rating": 4,
+    "username": "SpeedDemon87",
+    "userId": 8,
+    "gameId": 2    
+})
+
+const testreviewnine = await createReviews({
+    "text": "Amazing game. Amazing story. Amazing everything!!! 10/10 would reccomend.",
+    "rating": 5,
+    "username": "NoobMaster69",
+    "userId": 12,
+    "gameId": 2    
+})
+
+const reviewTen = await createReviews({
+    "text": "Portal 2 is a masterpiece of puzzle gaming. The level design is ingenious, and the humor adds a delightful touch to the experience.",
+    "rating": 5,
+    "username": "VRAdventurer",
+    "userId": 6,
+    "gameId": 3
+})
+
+const reviewEleven = await createReviews({
+    "text": "As a fan of the first Portal, I can confidently say that Portal 2 surpasses all expectations. The co-op puzzles are a blast, and Wheatley's character is pure fun.",
+    "rating": 5,
+    "username": "LethalGamerX",
+    "userId": 7,
+    "gameId": 3
+})
+
+const reviewTwelve = await createReviews({
+    "text": "Portal 2 is one of those rare games that you can't help but recommend to everyone. The puzzles are challenging, and the humor never gets old.",
+    "rating": 4,
+    "username": "SpeedDemon87",
+    "userId": 8,
+    "gameId": 3
+})
+
+const reviewThirteen = await createReviews({
+    "text": "Life is Strange is freaking awesome! The time-travel thingy makes the story hella interesting. I was hooked from start to finish!",
+    "rating": 5,
+    "username": "GamingGeek",
+    "userId": 9,
+    "gameId": 12
+});
+
+const reviewFourteen = await createReviews({
+    "text": "Life is Strange's characters are so relatable, and the choices you make actually matter, man! It's a game that sticks with ya.",
+    "rating": 5,
+    "username": "CyberWarrior99",
+    "userId": 10,
+    "gameId": 12
+});
+
+const reviewFifteen = await createReviews({
+    "text": "Life is Strange is a real mind-bender, dude! The story messes with your feelings, and you gotta make some tough calls. Loved it!",
+    "rating": 5,
+    "username": "PlayfulPanda123",
+    "userId": 11,
+    "gameId": 12
+});
+
+const reviewSixteen = await createReviews({
+    "text": "game was okay. Graphics could've been better and dialogue was sometimes awkaward. Good story though.",
+    "rating":3,
+    "username":"GamerKing92",
+    "userID":3,
+    "gameId":12
+})
+const reviewSeventeen = await createReviews({
+    "text": "Diablo 2 is epic. The loot and character progression got me addicted, and the dark atmosphere is sick!",
+    "rating": 5,
+    "username": "PlayfulPanda123",
+    "userId": 11,
+    "gameId": 4
+});
+
+const reviewEighteen = await createReviews({
+    "text": "Diablo 2 is a classic, man! The action is intense, and there's so much loot to collect. It's like crack for gamers!",
+    "rating": 4,
+    "username": "LethalGamerX",
+    "userId": 7,
+    "gameId": 4
+});
+
+const reviewnineteen = await createReviews({
+    "text": "Diablo 2 is a nostalgia trip. I used to play it back in the day, and it's still a blast!",
+    "rating": 4,
+    "username": "PixelMaster2000",
+    "userId": 5,
+    "gameId": 4
+});
+const reviewtwenty = await createReviews({
+    "text": "Diablo 2's gameplay is addictively satisfying, man! Smashing demons and leveling up is pure joy. A true classic that stands the test of time!",
+    "rating": 5,
+    "username": "CyberWarrior99",
+    "userId": 10,
+    "gameId": 4
+});
+
+const reviewTwentyone = await createReviews({
+    "text": "Diablo 2 is legendary!!!It's all about the grind. Hours fly by when you're in this game!",
+    "rating": 5,
+    "username": "NoobMaster69",
+    "userId": 12,
+    "gameId": 4
+});
 
         const testCommentOne = await createComments({
             "text": "It's not ok",
@@ -833,7 +988,7 @@ const testReviewSix = await createReviews({
 
           const testCommentTwo = await createComments({
             "text": "This is great!",
-            "username": "PixelGamer2000",
+            "username": "mason",
             "userId": 1,
             "reviewId": 1,
             "gameId": 1

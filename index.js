@@ -8,19 +8,11 @@ const app = express()
 const cors = require("cors");
 app.use(cors());
 
-// function corsBypass(req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     next();
-// }
-
 function middlewareTest(req, res, next) {
     console.log("the test worked")
     next()
 }
 app.use(middlewareTest)
-// app.use(corsBypass);
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -305,10 +297,11 @@ async function postNewReview(req, res, next) {
             const userFromDb = await fetchUserByUsername(auth.username)
             if (userFromDb) {
                 const response = await createReviews(req.body)
+                console.log(response)
                 if (response) {
                 res.send(response)
             } else {
-                res.send({error: true, messsage: "Cannot create more than one review" })
+                res.send({error: true, messsage: "Cannot create more than one review, please delete or edit your existing post." })
             }
             } else {
                 res.send({error: true, message: "You need to have an account before being able to post a review."})

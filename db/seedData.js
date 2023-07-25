@@ -46,23 +46,6 @@ async function createTables() {
     }
 }
 
-// async function updateGameById(gameId, updateGameObjData){
-//     try {
-//         const { rows } = await client.query(`
-//             UPDATE games
-//             SET title = $1, "publishDate" = $2, "gameDeveloper" = $3, genre = $4, platforms = $5, players = $6, "coverImg" = $7
-//             WHERE "gameId" = $8
-//             RETURNING *;
-//           `, [ updateGameObjData.title, updateGameObjData.publishDate,updateGameObjData.gameDeveloper,updateGameObjData.genre, updateGameObjData.platforms, updateGameObjData.players,updateGameObjData.coverImg, gameId]);
-
-//   if (rows.length){
-//     return rows[0];
-//   }
-// } catch (error) {
-//     console.log(error);
-// }
-// }
-
 async function updateGameById(gameId, fields = {}) {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }" = $${ index + 1}`
@@ -239,7 +222,7 @@ async function buildDatabase() {
     try {
         client.connect();
 
-        await destroyTables();
+        // await destroyTables();
         await createTables();
 
         const firstGame = await createNewGame({

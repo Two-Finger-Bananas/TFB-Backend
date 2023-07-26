@@ -222,7 +222,7 @@ async function buildDatabase() {
     try {
         client.connect();
 
-        // await destroyTables();
+        await destroyTables();
         await createTables();
 
         const firstGame = await createNewGame({
